@@ -3,8 +3,7 @@
 session_start();
 
 // Include the header and UserModel
-// require_once 'header.php';
-require_once '../models/UserModel.php';
+require_once ('../models/UserModel.php');
 
 // Initialize variables
 $username = $email = $password = $confirm_password = '';
@@ -69,7 +68,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $_SESSION['role'] = 'customer'; // Default role
 
                 // Redirect to the dashboard or home page
-                header('Location: index.php');
+                header('Location: login.php');
                 exit;
             } else {
                 $errors['general'] = 'Registration failed. Please try again.';
@@ -85,44 +84,54 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Register</title>
-    <link rel="stylesheet" href="assets/css/styles.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="../assets/CSS/style1.css">
 </head>
-<body>
-    <h2>Register</h2>
-    <?php if (!empty($errors['general'])): ?>
-        <p style="color: red;"><?= $errors['general'] ?></p>
-    <?php endif; ?>
-    <form method="POST" action="register.php">
-        <div>
-            <label for="username">Username:</label>
-            <input type="text" name="username" id="username" value="<?= htmlspecialchars($username) ?>">
-            <?php if (!empty($errors['username'])): ?>
-                <span style="color: red;"><?= $errors['username'] ?></span>
+<body class="bg-light">
+    <?php require_once ('../includes/header.php');   ?>
+    <div class="container d-flex justify-content-center align-items-center vh-100">
+        <div class="card p-4 shadow" style="max-width: 400px; width: 100%;">
+            <h2 class="text-center mb-4">Register</h2>
+            <?php if (!empty($errors['general'])): ?>
+                <div class="alert alert-danger"><?= $errors['general'] ?></div>
             <?php endif; ?>
+            <form method="POST" action="register.php">
+                <div class="mb-3">
+                    <label for="username" class="form-label">Username</label>
+                    <input type="text" name="username" id="username" class="form-control" value="<?= htmlspecialchars($username ?? '') ?>">
+                    <?php if (!empty($errors['username'])): ?>
+                        <div class="text-danger"><?= $errors['username'] ?></div>
+                    <?php endif; ?>
+                </div>
+                <div class="mb-3">
+                    <label for="email" class="form-label">Email</label>
+                    <input type="email" name="email" id="email" class="form-control" value="<?= htmlspecialchars($email ?? '') ?>">
+                    <?php if (!empty($errors['email'])): ?>
+                        <div class="text-danger"><?= $errors['email'] ?></div>
+                    <?php endif; ?>
+                </div>
+                <div class="mb-3">
+                    <label for="password" class="form-label">Password</label>
+                    <input type="password" name="password" id="password" class="form-control">
+                    <?php if (!empty($errors['password'])): ?>
+                        <div class="text-danger"><?= $errors['password'] ?></div>
+                    <?php endif; ?>
+                </div>
+                <div class="mb-3">
+                    <label for="confirm_password" class="form-label">Confirm Password</label>
+                    <input type="password" name="confirm_password" id="confirm_password" class="form-control">
+                    <?php if (!empty($errors['confirm_password'])): ?>
+                        <div class="text-danger"><?= $errors['confirm_password'] ?></div>
+                    <?php endif; ?>
+                </div>
+                <button type="submit" class="btn btn-primary w-100">Register</button>
+            </form>
+            <p class="mt-3 text-center">Already have an account? <a href="login.php">Login here</a>.</p>
         </div>
-        <div>
-            <label for="email">Email:</label>
-            <input type="email" name="email" id="email" value="<?= htmlspecialchars($email) ?>">
-            <?php if (!empty($errors['email'])): ?>
-                <span style="color: red;"><?= $errors['email'] ?></span>
-            <?php endif; ?>
-        </div>
-        <div>
-            <label for="password">Password:</label>
-            <input type="password" name="password" id="password">
-            <?php if (!empty($errors['password'])): ?>
-                <span style="color: red;"><?= $errors['password'] ?></span>
-            <?php endif; ?>
-        </div>
-        <div>
-            <label for="confirm_password">Confirm Password:</label>
-            <input type="password" name="confirm_password" id="confirm_password">
-            <?php if (!empty($errors['confirm_password'])): ?>
-                <span style="color: red;"><?= $errors['confirm_password'] ?></span>
-            <?php endif; ?>
-        </div>
-        <button type="submit">Register</button>
-    </form>
-    <p>Already have an account? <a href="login.php">Login here</a>.</p>
+    </div>
+    <?php require_once ('../includes/footer.php');   ?>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
 </body>
 </html>
