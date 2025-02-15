@@ -1,3 +1,5 @@
+<?php 
+?>
 <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
     <div class="container">
       <a class="navbar-brand" href="#"><img src="../assets/img/Logo.png" alt="logo" class="logo img-fluid"></a>

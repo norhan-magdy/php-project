@@ -1,0 +1,14 @@
+.logo{
+    max-height: 50px;
+    width: auto;
+}
+
+  .navbar {
+    background-color: #343a40 !important;
+  }
+  .navbar-brand, .nav-link {
+    color: white !important;
+  }
+  .nav-link:hover {
+    color: #ffc107 !important;
+  }

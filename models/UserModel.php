@@ -3,7 +3,7 @@
 require_once '../conf/conf.php';
 
 class UserModel {
-    private $conn;
+    public $conn;
 
     public function __construct() {
         global $conn;
@@ -69,6 +69,14 @@ class UserModel {
         $sql = "SELECT * FROM users WHERE username = ? OR email = ?";
         $stmt = $this->conn->prepare($sql);
         $stmt->bind_param('ss', $username, $email);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        return $result->fetch_assoc();
+    }
+    public function getUserByUsername($username) {
+        $sql = "SELECT * FROM users WHERE username = ?";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bind_param('s', $username);
         $stmt->execute();
         $result = $stmt->get_result();
         return $result->fetch_assoc();
