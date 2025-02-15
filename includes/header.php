@@ -9,13 +9,13 @@
       <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav ms-auto">
           <li class="nav-item">
-            <a class="nav-link" href="#menu">Menu</a>
+            <a class="nav-link" href="../customer/menu.php">Menu</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#reservations">Reservations</a>
+            <a class="nav-link" href="../customer/reservation.php">Reservations</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#order">Order Online</a>
+            <a class="nav-link" href="../customer/order.php">Order Online</a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="../authentication/login.php">Login</a>
