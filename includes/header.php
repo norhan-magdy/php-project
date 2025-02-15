@@ -18,10 +18,10 @@
             <a class="nav-link" href="#order">Order Online</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#login">Login</a>
+            <a class="nav-link" href="../authentication/login.php">Login</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#register">Register</a>
+            <a class="nav-link" href="../authentication/register.php">Register</a>
           </li>
         </ul>
       </div>

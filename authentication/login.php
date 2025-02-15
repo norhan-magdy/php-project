@@ -2,6 +2,17 @@
 // Start the session
 session_start();
 
+// Check if the user is already logged in
+if (isset($_SESSION['user_id'])) {
+    // Redirect based on user role
+    if ($_SESSION['role'] === 'staff') {
+        header('Location: dashboard/index.php');
+    } else {
+        header('Location: dashboardUser.php');
+    }
+    exit;
+}
+
 // Include the header and UserModel
 require_once '../models/UserModel.php';
 
@@ -40,16 +51,20 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $_SESSION['username'] = $user['username'];
                 $_SESSION['role'] = $user['role'];
 
-                // Redirect to the dashboard or home page
-                header('Location: dashboardUser.php');
-                exit;
-            } else {
-                $errors['general'] = 'Invalid username or password.';
-            }
+         // Redirect based on user role
+         if ($user['role'] === 'staff') {
+            header('Location: dashboard/index.php');
         } else {
-            $errors['general'] = 'Invalid username or password.';
+            header('Location: dashboardUser.php');
         }
+        exit;
+    } else {
+        $errors['general'] = 'Invalid username or password.';
     }
+} else {
+    $errors['general'] = 'Invalid username or password.';
+}
+}
 }
 ?>
 
