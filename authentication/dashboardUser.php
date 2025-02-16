@@ -24,7 +24,8 @@ if (!isset($_SESSION['user_id'])) {
         /* Hero Section Styling */
         .hero-section {
             background: url('../assets/img/hero.jpg') no-repeat center center/cover;
-            height: 100vh; /* Full Screen Height */
+            height: 100vh;
+            /* Full Screen Height */
             display: flex;
             align-items: center;
             justify-content: center;
@@ -37,12 +38,14 @@ if (!isset($_SESSION['user_id'])) {
             background-color: #343a40 !important;
         }
 
-        .navbar-brand, .nav-link {
+        .navbar-brand,
+        .nav-link {
             color: white !important;
         }
 
         .nav-link:hover {
-            color: #ffc107 !important; /* Hover Effect */
+            color: #ffc107 !important;
+            /* Hover Effect */
         }
 
         /* Card Hover Effect */
@@ -54,7 +57,8 @@ if (!isset($_SESSION['user_id'])) {
         /* Responsive Adjustments */
         @media (max-width: 768px) {
             .hero-section {
-                height: 60vh; /* Smaller Hero Section on Mobile */
+                height: 60vh;
+                /* Smaller Hero Section on Mobile */
             }
         }
     </style>
@@ -80,13 +84,13 @@ if (!isset($_SESSION['user_id'])) {
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto">
                     <li class="nav-item">
-                        <a class="nav-link" href="#menu">Menu</a>
+                        <a class="nav-link" href="../customer/menu.php">Menu</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#reservations">Reservations</a>
+                        <a class="nav-link" href="../customer/reservation.php">Reservations</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#order">Order Online</a>
+                        <a class="nav-link" href="../customer/order.php">Order Online</a>
                     </li>
 
                     <!-- User Greeting & Logout -->
@@ -104,7 +108,7 @@ if (!isset($_SESSION['user_id'])) {
         <div class="text-center">
             <h1 class="display-3 fw-bold">Welcome to Our Restaurant</h1>
             <p class="lead">Delicious food, great ambiance, and exceptional service.</p>
-            <a href="#menu" class="btn btn-warning btn-lg">Explore Menu</a>
+            <a href="../customer/menu.php" class="btn btn-warning btn-lg">Explore Menu</a>
         </div>
     </div>
 
@@ -117,7 +121,7 @@ if (!isset($_SESSION['user_id'])) {
                     <div class="card-body">
                         <h3 class="card-title">Our Menu</h3>
                         <p class="card-text">Discover our wide range of dishes, from appetizers to desserts.</p>
-                        <a href="#menu" class="btn btn-outline-primary">View Menu</a>
+                        <a href="../customer/menu.php" class="btn btn-outline-primary">View Menu</a>
                     </div>
                 </div>
             </div>
@@ -128,7 +132,7 @@ if (!isset($_SESSION['user_id'])) {
                     <div class="card-body">
                         <h3 class="card-title">Book a Table</h3>
                         <p class="card-text">Reserve your table online and enjoy a seamless dining experience.</p>
-                        <a href="#reservations" class="btn btn-outline-success">Book Now</a>
+                        <a href="../customer/reservation.php" class="btn btn-outline-success">Book Now</a>
                     </div>
                 </div>
             </div>
@@ -139,7 +143,7 @@ if (!isset($_SESSION['user_id'])) {
                     <div class="card-body">
                         <h3 class="card-title">Order Online</h3>
                         <p class="card-text">Order your favorite dishes online and get them delivered to your doorstep.</p>
-                        <a href="#order" class="btn btn-outline-danger">Order Now</a>
+                        <a href="../customer/order.php" class="btn btn-outline-danger">Order Now</a>
                     </div>
                 </div>
             </div>
@@ -153,4 +157,5 @@ if (!isset($_SESSION['user_id'])) {
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
 </body>
+
 </html>

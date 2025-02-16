@@ -73,7 +73,7 @@
                     <div class="card-body">
                         <h3 class="card-title">Our Menu</h3>
                         <p class="card-text">Discover our wide range of dishes, from appetizers to desserts.</p>
-                        <a href="#menu" class="btn btn-outline-primary">View Menu</a>
+                        <a href="../customer/menu.php" class="btn btn-outline-primary">View Menu</a>
                     </div>
                 </div>
             </div>
@@ -84,7 +84,7 @@
                     <div class="card-body">
                         <h3 class="card-title">Book a Table</h3>
                         <p class="card-text">Reserve your table online and enjoy a seamless dining experience.</p>
-                        <a href="#reservations" class="btn btn-outline-success">Book Now</a>
+                        <a href="../customer/reservation.php" class="btn btn-outline-success">Book Now</a>
                     </div>
                 </div>
             </div>
@@ -95,7 +95,7 @@
                     <div class="card-body">
                         <h3 class="card-title">Order Online</h3>
                         <p class="card-text">Order your favorite dishes online and get them delivered to your doorstep.</p>
-                        <a href="#order" class="btn btn-outline-danger">Order Now</a>
+                        <a href="../customer/order.php" class="btn btn-outline-danger">Order Now</a>
                     </div>
                 </div>
             </div>
