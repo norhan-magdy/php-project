@@ -1,17 +1,19 @@
 <?php
-// models/ReservationModel.php
-require_once 'conf.php';
+require_once '../conf/conf.php';
 
-class ReservationModel {
+class ReservationModel
+{
     private $conn;
 
-    public function __construct() {
+    public function __construct()
+    {
         global $conn;
         $this->conn = $conn;
     }
 
     // Create a new reservation
-    public function createReservation($user_id, $table_id, $reservation_date, $guests) {
+    public function createReservation($user_id, $table_id, $reservation_date, $guests)
+    {
         $sql = "INSERT INTO reservations (user_id, table_id, reservation_date, guests) VALUES (?, ?, ?, ?)";
         $stmt = $this->conn->prepare($sql);
         $stmt->bind_param('iisi', $user_id, $table_id, $reservation_date, $guests);
@@ -20,14 +22,16 @@ class ReservationModel {
     }
 
     // Get all reservations
-    public function getAllReservations() {
+    public function getAllReservations()
+    {
         $sql = "SELECT * FROM reservations";
         $result = $this->conn->query($sql);
         return $result->fetch_all(MYSQLI_ASSOC);
     }
 
     // Get reservations by user ID
-    public function getReservationsByUserId($user_id) {
+    public function getReservationsByUserId($user_id)
+    {
         $sql = "SELECT * FROM reservations WHERE user_id = ?";
         $stmt = $this->conn->prepare($sql);
         $stmt->bind_param('i', $user_id);
@@ -37,7 +41,8 @@ class ReservationModel {
     }
 
     // Update reservation status
-    public function updateReservationStatus($id, $status) {
+    public function updateReservationStatus($id, $status)
+    {
         $sql = "UPDATE reservations SET status = ? WHERE id = ?";
         $stmt = $this->conn->prepare($sql);
         $stmt->bind_param('si', $status, $id);
@@ -45,11 +50,11 @@ class ReservationModel {
     }
 
     // Delete a reservation
-    public function deleteReservation($id) {
+    public function deleteReservation($id)
+    {
         $sql = "DELETE FROM reservations WHERE id = ?";
         $stmt = $this->conn->prepare($sql);
         $stmt->bind_param('i', $id);
         return $stmt->execute();
     }
 }
-?>

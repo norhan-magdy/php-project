@@ -33,7 +33,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $_SESSION['username'] = $user['username'];
             $_SESSION['role'] = $user['role'];
 
-            header('Location: ' . ($user['role'] === 'staff' ? 'dashboard/index.php' : 'dashboardUser.php'));
+            header('Location: ' . ($user['role'] === 'staff' ? '../dashboard/index.php' : 'dashboardUser.php'));
             exit;
         } else {
             $errors['general'] = 'Invalid username or password.';
