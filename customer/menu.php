@@ -6,6 +6,7 @@ session_start();
 require_once '../models/CategoryModel.php';
 require_once '../models/DishModel.php';
 require_once '../models/SpecialOfferModel.php';
+require_once '../models/CartModel.php';
 
 // Initialize models
 $categoryModel = new CategoryModel();
@@ -17,6 +18,23 @@ $categories = $categoryModel->getAllCategories();
 
 // Fetch all active special offers
 $specialOffers = $specialOfferModel->getAllSpecialOffers();
+
+
+// Handle "Add to Cart" form submission
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['add_to_cart'])) {
+    $dish_id = $_POST['dish_id'];
+    $dish_name = $_POST['dish_name'];
+    $dish_price = $_POST['dish_price'];
+    $quantity = $_POST['quantity'];
+
+    // Add the item to the cart
+    CartModel::addToCart($dish_id, $dish_name, $dish_price, $quantity);
+
+    // Redirect back to the menu page
+    header('Location: menu.php');
+    exit();
+}
+
 ?>
 
 <!DOCTYPE html>
@@ -243,6 +261,17 @@ $specialOffers = $specialOfferModel->getAllSpecialOffers();
                                 <p class="card-text">
                                     Expires on: <?= htmlspecialchars($offer['expiry_date']) ?>
                                 </p>
+                                           <!-- Add to Cart Form -->
+                        <form action="menu.php" method="POST" class="mt-3">
+                            <input type="hidden" name="dish_id" value="<?= $offer['id'] ?>">
+                            <input type="hidden" name="dish_name" value="<?= $offer['name'] ?>">
+                            <input type="hidden" name="dish_price" value="0"> <!-- Special offers are free or discounted -->
+                            <input type="hidden" name="add_to_cart" value="1">
+                            <div class="input-group mb-3">
+                                <input type="number" name="quantity" class="form-control" value="1" min="1" required>
+                                <button type="submit" class="btn btn-primary">Add to Cart</button>
+                            </div>
+                        </form>
                             </div>
                         </div>
                     </div>
@@ -270,6 +299,17 @@ $specialOffers = $specialOfferModel->getAllSpecialOffers();
                                     <span class="badge <?= $dish['availability'] ? 'bg-success' : 'bg-danger' ?>">
                                         <?= $dish['availability'] ? 'Available' : 'Not Available' ?>
                                     </span>
+                                      <!-- Add to Cart Form -->
+                                      <form action="menu.php" method="POST" class="mt-3">
+                                        <input type="hidden" name="dish_id" value="<?= $dish['id'] ?>">
+                                        <input type="hidden" name="dish_name" value="<?= $dish['name'] ?>">
+                                        <input type="hidden" name="dish_price" value="<?= $dish['price'] ?>">
+                                        <input type="hidden" name="add_to_cart" value="1">
+                                        <div class="input-group mb-3">
+                                            <input type="number" name="quantity" class="form-control" value="1" min="1" required>
+                                            <button type="submit" class="btn btn-primary">Add to Cart</button>
+                                        </div>
+                                    </form>
                                 </div>
                             </div>
                         </div>
@@ -278,6 +318,7 @@ $specialOffers = $specialOfferModel->getAllSpecialOffers();
             </div>
         <?php endforeach; ?>
     </div>
+
 
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>

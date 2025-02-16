@@ -107,6 +107,7 @@ if (!isset($_SESSION['user_id'])) {
     <div class="hero-section">
         <div class="text-center">
             <h1 class="display-3 fw-bold">Welcome to Our Restaurant</h1>
+            <img src="../assets/img/Logo.png" alt="logo" class="img-fluid" style="width: 600px; box-shadow: 0 0 20px rgba(0, 0, 0, 0.5); background-color:rgba(52, 58, 64, 0.49); border-radius: 15%;">
             <p class="lead">Delicious food, great ambiance, and exceptional service.</p>
             <a href="../customer/menu.php" class="btn btn-warning btn-lg">Explore Menu</a>
         </div>
