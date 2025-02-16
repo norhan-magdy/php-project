@@ -2,12 +2,6 @@
 // Start session
 session_start();
 
-// Redirect if already logged in
-if (isset($_SESSION['user_id'])) {
-    header('Location: ' . ($_SESSION['role'] === 'staff' ? '../dashboard/index.php' : 'dashboardUser.php'));
-    exit;
-}
-
 // Include UserModel
 require_once '../models/UserModel.php';
 
