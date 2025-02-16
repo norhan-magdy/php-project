@@ -9,6 +9,8 @@ $categoryModel = new CategoryModel();
 $dishModel = new DishModel();
 $specialOfferModel = new SpecialOfferModel($conn);
 
+$dishes = $dishModel->getAllDishes();
+
 $totalItems = count($dishes);
 $averagePrice = $dishModel->getAveragePrice();
 $availableItems = $dishModel->countAvailableItems();
