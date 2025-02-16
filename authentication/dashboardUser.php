@@ -18,6 +18,8 @@ if (!isset($_SESSION['user_id'])) {
 
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link rel="stylesheet" href="./assets/CSS/style.css">
 
     <style>
@@ -62,51 +64,14 @@ if (!isset($_SESSION['user_id'])) {
             }
         }
     </style>
-</head>
 
-<body>
-
-    <!-- Navbar -->
-    <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
-        <div class="container">
-            <!-- Logo -->
-            <a class="navbar-brand" href="#">
-                <img src="../assets/img/Logo.png" alt="logo" class="img-fluid" style="height: 40px;">
-            </a>
-
-            <!-- Mobile Toggle Button -->
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
-                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-
-            <!-- Navbar Links -->
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav ms-auto">
-                    <li class="nav-item">
-                        <a class="nav-link" href="../customer/menu.php">Menu</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="../customer/reservation.php">Reservations</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="../customer/order.php">Order Online</a>
-                    </li>
-
-                    <!-- User Greeting & Logout -->
-                    <li class="nav-item d-flex align-items-center ms-lg-3">
-                        <span class="text-light me-2">Welcome, <strong><?= htmlspecialchars($_SESSION['username']) ?></strong>!</span>
-                        <a href="logout.php" class="btn btn-danger btn-sm">Logout</a>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </nav>
+<?php require_once('../includes/header.php'); ?>
 
     <!-- Hero Section -->
     <div class="hero-section">
         <div class="text-center">
             <h1 class="display-3 fw-bold">Welcome to Our Restaurant</h1>
+            <img src="../assets/img/Logo.png" alt="logo" class="img-fluid" style="width: 600px; box-shadow: 0 0 20px rgba(0, 0, 0, 0.5); background-color:rgba(52, 58, 64, 0.49); border-radius: 15%;">
             <p class="lead">Delicious food, great ambiance, and exceptional service.</p>
             <a href="../customer/menu.php" class="btn btn-warning btn-lg">Explore Menu</a>
         </div>

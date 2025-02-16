@@ -1,3 +1,14 @@
+<?php 
+
+session_start();
+
+
+
+
+?>
+
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -59,8 +70,9 @@
   <div class="hero-section">
         <div class="text-center">
             <h1 class="display-3 fw-bold">Welcome to Our Restaurant</h1>
+            <img src="../assets/img/Logo.png" alt="logo" class="img-fluid" style="width: 600px; box-shadow: 0 0 20px rgba(0, 0, 0, 0.5); background-color:rgba(52, 58, 64, 0.49); border-radius: 15%;">
             <p class="lead">Delicious food, great ambiance, and exceptional service.</p>
-            <a href="#menu" class="btn btn-warning btn-lg">Explore Menu</a>
+            <a href="/customer/menu.php" class="btn btn-warning btn-lg">Explore Menu</a>
         </div>
     </div>
 
@@ -95,7 +107,7 @@
                     <div class="card-body">
                         <h3 class="card-title">Order Online</h3>
                         <p class="card-text">Order your favorite dishes online and get them delivered to your doorstep.</p>
-                        <a href="../customer/order.php" class="btn btn-outline-danger">Order Now</a>
+                        <a href="../customer/menu.php" class="btn btn-outline-danger">Order Now</a>
                     </div>
                 </div>
             </div>

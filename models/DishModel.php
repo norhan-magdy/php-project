@@ -1,6 +1,6 @@
 <?php
 // models/DishModel.php
-require_once 'conf.php';
+require_once '../conf/conf.php';
 
 class DishModel {
     private $conn;
@@ -50,5 +50,20 @@ class DishModel {
         $stmt->bind_param('i', $id);
         return $stmt->execute();
     }
+   
+
+    // Get dishes by category ID
+    public function getDishesByCategory($category_id) {
+        $sql = "SELECT * FROM menu_items WHERE category_id = ?";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bind_param('i', $category_id);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        return $result->fetch_all(MYSQLI_ASSOC);
+    }
+
+
+
+
 }
 ?>
