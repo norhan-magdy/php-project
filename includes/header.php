@@ -1,5 +1,3 @@
-<?php
-?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -9,6 +7,8 @@
   <title>Document</title>
   <!-- Bootstrap CSS -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Bootstrap Icons -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css">
   <!-- Font Awesome -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
   <link rel="stylesheet" href="../assets/CSS/style.css">
@@ -49,18 +49,18 @@
             </li>
           <?php endif; ?>
         </ul>
-        
-                <ul class="navbar-nav">
-                <li class="nav-item">
-                    <a class="nav-link" href="../customer/order.php   ">
-                        <i class="fas fa-shopping-cart"></i>
-                        <span class="badge bg-danger" id="cart-counter">
-                            <?= isset($_SESSION['cart']) ? count($_SESSION['cart']) : 0 ?>
-                        </span>
-                    </a>
-                </li>
-              
-            </ul>
+
+        <ul class="navbar-nav">
+          <li class="nav-item">
+            <a class="nav-link" href="../customer/order.php   ">
+              <i class="fas fa-shopping-cart"></i>
+              <span class="badge bg-danger" id="cart-counter">
+                <?= isset($_SESSION['cart']) ? count($_SESSION['cart']) : 0 ?>
+              </span>
+            </a>
+          </li>
+
+        </ul>
       </div>
     </div>
   </nav>
