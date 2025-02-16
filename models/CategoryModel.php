@@ -1,6 +1,6 @@
 <?php
 // models/CategoryModel.php
-require_once 'conf.php';
+require_once '../conf/conf.php';
 
 class CategoryModel {
     private $conn;
@@ -40,5 +40,8 @@ class CategoryModel {
         $stmt->bind_param('i', $id);
         return $stmt->execute();
     }
+
+   
+
 }
 ?>
