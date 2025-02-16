@@ -1,12 +1,26 @@
-.logo{
-    height: 60px;
-    width: 60px;
+.logo {
+  height: 60px;
+  width: 60px;
 }
 .logo-cont {
-    margin: 0;
-    padding: 5px;
-    height: 70px;
-    width: 70px;
-   background-color: white;
-   border-radius: 50px;
+  margin: 0;
+  padding: 5px;
+  height: 70px;
+  width: 70px;
+  background-color: white;
+  border-radius: 50px;
+}
+/* Navbar Customization */
+.navbar {
+  background-color: #343a40 !important;
+}
+
+.navbar-brand,
+.nav-link {
+  color: white !important;
+}
+
+.nav-link:hover {
+  color: #ffc107 !important;
+  /* Hover Effect */
 }

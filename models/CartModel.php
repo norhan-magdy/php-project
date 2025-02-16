@@ -1,5 +1,6 @@
 <?php
 // models/CartModel.php
+require_once '../conf/conf.php';
 
 class CartModel {
     // Add an item to the cart
@@ -34,5 +35,19 @@ class CartModel {
     public static function clearCart() {
         unset($_SESSION['cart']);
     }
+
+    public static function updateCartItem($index, $quantity) {
+        if (isset($_SESSION['cart'][$index])) {
+            $_SESSION['cart'][$index]['quantity'] = $quantity;
+        }
+    }
+
+    public static function removeCartItem($index) {
+        if (isset($_SESSION['cart'][$index])) {
+            unset($_SESSION['cart'][$index]);
+            $_SESSION['cart'] = array_values($_SESSION['cart']);
+        }
+    }
 }
+
 ?>
