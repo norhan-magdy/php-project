@@ -2,7 +2,7 @@
     <h3>Restaurant</h3>
     <ul>
       <li>
-        <a class="active" href="index.html">
+        <a class="active" href="index.php">
           <i class="fa-regular fa-chart-bar fa-fw"></i>
           <span>Dashboard</span>
         </a>
@@ -20,20 +20,20 @@
         </a>
       </li>
       <li>
-        <a href="./manage_orders.html">
+        <a href="./manage_orders.php">
           <i class="fa-solid fa-utensils fa-fw"></i>
           <span>Orders</span>
         </a>
       </li>
       <li>
-        <a href="./manage_reservations.html">
+        <a href="./manage_reservations.php">
           <i class="fa-regular fa-calendar fa-fw"></i>
           <span>Reservations</span>
         </a>
       </li>
 
       <li>
-        <a href="./manage_staff.html">
+        <a href="./manage_users.php">
           <i class="fa-solid fa-users fa-fw"></i>
           <span>Users</span>
         </a>
