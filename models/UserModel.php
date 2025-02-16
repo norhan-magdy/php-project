@@ -2,19 +2,22 @@
 // models/UserModel.php
 require_once '../conf/conf.php';
 
-class UserModel {
+class UserModel
+{
     public $conn;
 
-    public function __construct() {
+    public function __construct()
+    {
         global $conn;
         $this->conn = $conn;
     }
 
     // Register a new user
-   
+
 
     // Login a user
-    public function loginUser($username, $password) {
+    public function loginUser($username, $password)
+    {
         $sql = "SELECT * FROM users WHERE username = ?";
         $stmt = $this->conn->prepare($sql);
         $stmt->bind_param('s', $username);
@@ -28,8 +31,16 @@ class UserModel {
         return false;
     }
 
+    public function getAllUsers()
+    {
+        $sql = "SELECT * FROM users";
+        $result = $this->conn->query($sql);
+        return $result->fetch_all(MYSQLI_ASSOC);
+    }
+
     // Get user by ID
-    public function getUserById($id) {
+    public function getUserById($id)
+    {
         $sql = "SELECT * FROM users WHERE id = ?";
         $stmt = $this->conn->prepare($sql);
         $stmt->bind_param('i', $id);
@@ -39,7 +50,8 @@ class UserModel {
     }
 
     // Update user profile
-    public function updateUser($id, $username, $email, $phone, $profile_picture) {
+    public function updateUser($id, $username, $email, $phone, $profile_picture)
+    {
         $sql = "UPDATE users SET username = ?, email = ?, phone = ?, profile_picture = ? WHERE id = ?";
         $stmt = $this->conn->prepare($sql);
         $stmt->bind_param('ssssi', $username, $email, $phone, $profile_picture, $id);
@@ -47,14 +59,16 @@ class UserModel {
     }
 
     // Delete a user
-    public function deleteUser($id) {
+    public function deleteUser($id)
+    {
         $sql = "DELETE FROM users WHERE id = ?";
         $stmt = $this->conn->prepare($sql);
         $stmt->bind_param('i', $id);
         return $stmt->execute();
     }
 
-    public function registerUser($username, $password, $email, $role = 'customer') {
+    public function registerUser($username, $password, $email, $role = 'customer')
+    {
         $sql = "INSERT INTO users (username, password, email, role) VALUES (?, ?, ?, ?)";
         $stmt = $this->conn->prepare($sql);
         $stmt->bind_param('ssss', $username, $password, $email, $role);
@@ -65,7 +79,8 @@ class UserModel {
 
 
     // Check if username or email already exists
-    public function getUserByUsernameOrEmail($username, $email) {
+    public function getUserByUsernameOrEmail($username, $email)
+    {
         $sql = "SELECT * FROM users WHERE username = ? OR email = ?";
         $stmt = $this->conn->prepare($sql);
         $stmt->bind_param('ss', $username, $email);
@@ -73,7 +88,8 @@ class UserModel {
         $result = $stmt->get_result();
         return $result->fetch_assoc();
     }
-    public function getUserByUsername($username) {
+    public function getUserByUsername($username)
+    {
         $sql = "SELECT * FROM users WHERE username = ?";
         $stmt = $this->conn->prepare($sql);
         $stmt->bind_param('s', $username);
@@ -82,4 +98,3 @@ class UserModel {
         return $result->fetch_assoc();
     }
 }
-?>
