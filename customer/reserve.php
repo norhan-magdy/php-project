@@ -8,9 +8,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $user_id = 2; // Replace with actual user ID
     $guests = $_POST['guests']; // Get the number of guests from the form
 
+    // Combine date and time into one datetime string
+    $reservation_datetime = $reservation_date . ' ' . $reservation_time;
+
     // Check if the table is already reserved
     $stmt = $conn->prepare("SELECT * FROM reservations WHERE table_id = (SELECT id FROM tables WHERE table_number = ?) AND reservation_date = ?");
-    $stmt->bind_param("is", $table_number, $reservation_date);
+    $stmt->bind_param("is", $table_number, $reservation_datetime);
     $stmt->execute();
     $result = $stmt->get_result();
 
@@ -24,7 +27,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         // Insert the reservation
         $stmt = $conn->prepare("INSERT INTO reservations (user_id, table_id, reservation_date, guests) VALUES (?, ?, ?, ?)");
         $table_id = (int) $conn->query("SELECT id FROM tables WHERE table_number = $table_number")->fetch_row()[0]; // Get table ID
-        $stmt->bind_param("iisi", $user_id, $table_id, $reservation_date, $guests);
+        $stmt->bind_param("iisi", $user_id, $table_id, $reservation_datetime, $guests);
         $stmt->execute();
 
         // Update table status
