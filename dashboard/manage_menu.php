@@ -232,7 +232,6 @@ require_once('../includes/header.php');
                   <th>Name</th>
                   <th>Description</th>
                   <th>Price</th>
-                  <th>Image</th>
                   <th>Category</th>
                   <th>Availability</th>
                   <th>Actions</th>
@@ -245,14 +244,7 @@ require_once('../includes/header.php');
                     <td><?= htmlspecialchars($dish['name']) ?></td>
                     <td><?= htmlspecialchars($dish['description']) ?></td>
                     <td>$<?= number_format($dish['price'], 2) ?></td>
-                    <td>
-                      <?php if ($dish['image']): ?>
-                        <img src="../uploads/<?= htmlspecialchars($dish['image']) ?>"
-                          width="50" class="img-thumbnail" alt="<?= htmlspecialchars($dish['name']) ?>">
-                      <?php else: ?>
-                        <span class="text-muted">No image</span>
-                      <?php endif; ?>
-                    </td>
+
                     <td><?= $categoryMap[$dish['category_id']] ?? 'Uncategorized' ?></td>
                     <td>
                       <span class="badge bg-<?= $dish['availability'] ? 'success' : 'danger' ?>">

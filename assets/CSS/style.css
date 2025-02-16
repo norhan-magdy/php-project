@@ -1,31 +1,10 @@
-.logo {
-  height: 60px;
-  width: 60px;
-}
 .logo-cont {
   margin: 0;
   padding: 5px;
-  height: 70px;
   width: 70px;
   background-color: white;
   border-radius: 50px;
 }
-/* Navbar Customization */
-.navbar {
-  background-color: #343a40 !important;
-}
-
-.navbar-brand,
-.nav-link {
-  color: white !important;
-}
-
-.nav-link:hover {
-  color: #ffc107 !important;
-  /* Hover Effect */
-}
-
-/* Navbar */
 .navbar {
   background-color: #343a40 !important;
 }
@@ -39,7 +18,19 @@
   color: #ffc107 !important;
 }
 
-/* Page Styling */
+.navbar {
+  background-color: #343a40 !important;
+}
+
+.navbar-brand,
+.nav-link {
+  color: white !important;
+}
+
+.nav-link:hover {
+  color: #ffc107 !important;
+}
+
 body {
   background: #f8f9fa;
 }
@@ -52,17 +43,16 @@ body {
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
-/* Sidebar Styling */
 .sidebar {
   position: fixed;
-  top: 70px; /* Adjust based on header height */
+  top: 65.3px;
   left: 0;
-  height: calc(100vh - 70px); /* Full height minus header */
+  height: calc(100vh - 65.3px);
   width: 250px;
   background-color: #343a40;
   color: white;
   padding: 20px;
-  overflow-y: auto; /* Enable scrolling if content overflows */
+  overflow-y: auto;
 }
 
 .sidebar h3 {
@@ -97,16 +87,14 @@ body {
   color: #ffc107;
   background-color: rgba(255, 255, 255, 0.1);
   font-weight: bold;
-  border-left: 4px solid #ffc107; /* Add a left border for active state */
+  border-left: 4px solid #ffc107;
 }
 
-/* Main Content Styling */
 .main-content {
-  margin: 80px 50px 0 270px; /* Same as sidebar width */
+  margin: 80px 50px 0 270px;
   padding: 20px;
 }
 
-/* Card Styling */
 .card {
   border-radius: 12px;
   overflow: hidden;
@@ -145,7 +133,6 @@ body {
   border-radius: 8px;
 }
 
-/* Category Section Styling */
 .category-section {
   margin-bottom: 40px;
 }
@@ -169,7 +156,6 @@ body {
   border-radius: 2px;
 }
 
-/* Special Offers Section Styling */
 .special-offer-section {
   margin-bottom: 40px;
 }
