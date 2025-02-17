@@ -2,7 +2,6 @@
 
 require_once '../conf/conf.php';
 
-
 class TableModel
 {
   private $conn;

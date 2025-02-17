@@ -1,8 +1,8 @@
 <?php
 session_start();
 require_once '../models/ReservationModel.php';
-require_once '../models/UserModel.php'; // For user information
-require_once '../models/TableModel.php'; // For table information
+require_once '../models/UserModel.php';
+require_once '../models/TableModel.php';
 
 $reservationModel = new ReservationModel();
 $userModel = new UserModel();
