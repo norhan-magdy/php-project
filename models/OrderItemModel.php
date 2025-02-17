@@ -3,7 +3,7 @@
 require_once '../conf/conf.php';
 
 
-class OrderModel
+class OrderItemModel
 {
     public $conn;
 
@@ -12,19 +12,6 @@ class OrderModel
         global $conn;
         $this->conn = $conn;
     }
-
-    // Create a new order
-    public function createOrder($user_id, $total_price, $address, $payment_method)
-    {
-        $sql = "INSERT INTO orders (user_id, total_price, address, payment_method, payment_status, status) VALUES (?,?,?, ?, 'pending', 'pending')";
-        $stmt = $this->conn->prepare($sql);
-        $stmt->bind_param("idss", $user_id, $total_price, $address, $payment_method);
-        $stmt->execute();
-        $order_id = $stmt->insert_id; // Get the ID of the newly created order
-        $stmt->close();
-        return $order_id;
-    }
-    // ... existing code ...
 
     public function getAllOrders()
     {
@@ -47,5 +34,30 @@ class OrderModel
         $stmt = $this->conn->prepare($sql);
         $stmt->bind_param("i", $orderId);
         return $stmt->execute();
+    }
+    public function getItemsByOrderId($orderId)
+    {
+        $sql = "SELECT oi.*, mi.name 
+                    FROM order_items oi
+                    JOIN menu_items mi ON oi.item_id = mi.id
+                    WHERE order_id = ?";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bind_param("i", $orderId);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        return $result->fetch_all(MYSQLI_ASSOC);
+    }
+    public function addOrderItems($order_id, $items)
+    {
+        foreach ($items as $item) {
+            $dish_id = $item['dish_id'];
+            $quantity = $item['quantity'];
+            $price_at_order = $item['dish_price'];
+            $sql = "INSERT INTO order_items (order_id, item_id, quantity, price_at_order) VALUES (?, ?, ?, ?)";
+            $stmt =  $this->conn->prepare($sql);
+            $stmt->bind_param("iiid", $order_id, $dish_id, $quantity, $price_at_order);
+            $stmt->execute();
+            $stmt->close();
+        }
     }
 }
