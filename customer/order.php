@@ -3,13 +3,13 @@
 session_start();
 
 // Include modules
-require_once '../models/order.php';
-require_once '../models/OrderItem.php';
+require_once '../models/OrderModel.php';
+require_once '../models/OrderItemModel.php';
 require_once '../models/CartModel.php';
 
 // Initialize models
-$orderModel = new Order();
-$orderItemModel = new OrderItem($db);
+$orderModel = new OrderModel();
+$orderItemModel = new OrderItemModel();
 
 // Check if the user is logged in
 if (!isset($_SESSION['user_id'])) {
@@ -20,7 +20,7 @@ if (!isset($_SESSION['user_id'])) {
 // Check if the cart is empty
 $cart = CartModel::getCart();
 if (empty($cart)) {
-    header('Location: order.php');
+    header('Location: ./menu.php'); // Redirect to menu or cart page instead
     exit();
 }
 
@@ -54,6 +54,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -67,15 +68,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             margin: 250px auto 220px;
             padding: 20px;
         }
+
         .order-table {
             background: white;
             border-radius: 12px;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         }
+
         .logo {
             height: 60px;
             width: 60px;
         }
+
         .logo-cont {
             margin: 0;
             padding: 5px;
@@ -84,21 +88,29 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             background-color: white;
             border-radius: 50px;
         }
+
         /* Navbar Customization */
         .navbar {
             background-color: #343a40 !important;
         }
-        .navbar-brand, .nav-link {
+
+        .navbar-brand,
+        .nav-link {
             color: white !important;
         }
+
         .nav-link:hover {
-            color: #ffc107 !important; /* Hover Effect */
+            color: #ffc107 !important;
+            /* Hover Effect */
         }
+
         #visa-payment-section {
-            display: none; /* Hidden by default */
+            display: none;
+            /* Hidden by default */
         }
     </style>
 </head>
+
 <body>
     <!-- Header -->
 
@@ -175,18 +187,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     <!-- JavaScript to Toggle Visa Payment Section -->
     <script>
-        document.addEventListener('DOMContentLoaded', function () {
+        document.addEventListener('DOMContentLoaded', function() {
             const visaRadio = document.getElementById('visa');
             const cashRadio = document.getElementById('cash');
             const visaPaymentSection = document.getElementById('visa-payment-section');
 
-            visaRadio.addEventListener('change', function () {
+            visaRadio.addEventListener('change', function() {
                 if (this.checked) {
                     visaPaymentSection.style.display = 'block';
                 }
             });
 
-            cashRadio.addEventListener('change', function () {
+            cashRadio.addEventListener('change', function() {
                 if (this.checked) {
                     visaPaymentSection.style.display = 'none';
                 }
@@ -194,4 +206,5 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         });
     </script>
 </body>
+
 </html>

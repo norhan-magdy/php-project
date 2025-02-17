@@ -2,8 +2,27 @@
 
 require_once '../conf/conf.php';
 
-class OrderItemModel
+class  OrderModel
 {
+
+    public $conn;
+
+    public function __construct()
+    {
+        global $conn;
+        $this->conn = $conn;
+    }
+    // Create a new order
+    public function createOrder($user_id, $total_price, $address, $payment_method)
+    {
+        $sql = "INSERT INTO orders (user_id, total_price, address, payment_method, payment_status, status) VALUES (?,?,?, ?, 'pending', 'pending')";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bind_param("idss", $user_id, $total_price, $address, $payment_method);
+        $stmt->execute();
+        $order_id = $stmt->insert_id; // Get the ID of the newly created order
+        $stmt->close();
+        return $order_id;
+    }
 
     public function getAllOrders()
     {
@@ -26,25 +45,5 @@ class OrderItemModel
         $stmt = $this->conn->prepare($sql);
         $stmt->bind_param("i", $orderId);
         return $stmt->execute();
-    }
-
-    public $conn;
-
-    public function __construct()
-    {
-        global $conn;
-        $this->conn = $conn;
-    }
-    public function getItemsByOrderId($orderId)
-    {
-        $sql = "SELECT oi.*, mi.name 
-                    FROM order_items oi
-                    JOIN menu_items mi ON oi.item_id = mi.id
-                    WHERE order_id = ?";
-        $stmt = $this->conn->prepare($sql);
-        $stmt->bind_param("i", $orderId);
-        $stmt->execute();
-        $result = $stmt->get_result();
-        return $result->fetch_all(MYSQLI_ASSOC);
     }
 }
