@@ -2,6 +2,11 @@
 // order.php
 session_start();
 
+if (isset($_SESSION['user_id'])) {
+    header('Location: ' . ($_SESSION['role'] === 'staff' ? '../dashboard/index.php' : 'dashboardUser.php'));
+    exit;
+}
+
 // Include modules
 require_once '../models/OrderModel.php';
 require_once '../models/OrderItemModel.php';
