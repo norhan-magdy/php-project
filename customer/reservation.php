@@ -1,5 +1,11 @@
 <?php
 include_once '../conf/conf.php';
+session_start();
+
+if (isset($_SESSION['user_id'])) {
+    header('Location: ' . ($_SESSION['role'] === 'staff' ? '../dashboard/index.php' : 'dashboardUser.php'));
+    exit;
+}
 
 $sql = "SELECT table_number, capacity, location FROM tables";
 $result = $conn->query($sql);

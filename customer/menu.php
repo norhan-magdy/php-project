@@ -2,6 +2,10 @@
 // Start the session
 session_start();
 
+if (isset($_SESSION['user_id'])) {
+    header('Location: ' . ($_SESSION['role'] === 'staff' ? '../dashboard/index.php' : 'dashboardUser.php'));
+    exit;
+}
 // Include the header and models
 require_once '../models/CategoryModel.php';
 require_once '../models/DishModel.php';

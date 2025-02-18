@@ -18,6 +18,8 @@ if (isset($_SESSION['user_id'])) {
 
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+
     <link rel="stylesheet" href="./assets/CSS/style.css">
 
 
@@ -85,7 +87,7 @@ if (isset($_SESSION['user_id'])) {
         <div class="row g-4">
             <div class="col-md-4">
                 <div class="card text-center shadow-lg p-3">
-                    <img src="../assets/img/menu.jpg" class="card-img-top" alt="Menu">
+                    <i class="fas fa-pizza-slice fa-3x mb-3" style="color: #ff7800;"></i>
                     <div class="card-body">
                         <h3 class="card-title">Our Menu</h3>
                         <p class="card-text">Discover our wide range of dishes, from appetizers to desserts.</p>
@@ -94,24 +96,24 @@ if (isset($_SESSION['user_id'])) {
                 </div>
             </div>
 
-            <div class="col-md-4">
+             <div class="col-md-4">
                 <div class="card text-center shadow-lg p-3">
-                    <img src="../assets/img/reservation.jpg" class="card-img-top" alt="Reservations">
+                    <i class="fa-solid fa-utensils fa-3x mb-3" style="color: #ff7800;"></i>
                     <div class="card-body">
                         <h3 class="card-title">Book a Table</h3>
                         <p class="card-text">Reserve your table online and enjoy a seamless dining experience.</p>
-                        <a href="../customer/reservation.php" class="btn btn-outline-success">Book Now</a>
+                        <a href="../customer/reservation.php" class="btn btn-outline-primary">Book Now</a>
                     </div>
                 </div>
             </div>
 
             <div class="col-md-4">
                 <div class="card text-center shadow-lg p-3">
-                    <img src="../assets/img/order.jpg" class="card-img-top" alt="Order Online">
+                    <i class="fa-solid fa-phone fa-3x mb-3" style="color: #ff7800;"></i>
                     <div class="card-body">
                         <h3 class="card-title">Order Online</h3>
                         <p class="card-text">Order your favorite dishes online and get them delivered to your doorstep.</p>
-                        <a href="../customer/menu.php" class="btn btn-outline-danger">Order Now</a>
+                        <a href="../customer/menu.php" class="btn btn-outline-primary">Order Now</a>
                     </div>
                 </div>
             </div>
