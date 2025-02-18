@@ -58,11 +58,15 @@ $result = $conn->query($sql);
   color: #ffc107 !important;
   /* Hover Effect */
 }
+
+body {
+  padding-top: 70px;
+}
 </style>
 <body>
 <?php require_once('../includes/header.php'); ?>
 
-<div class="container mt-5">
+<div class="container custom-container">
     <h2>Table Reservation</h2>
     
     <table class="table">
@@ -94,7 +98,7 @@ $result = $conn->query($sql);
     <form method="POST" action="reserve.php">
         <div class="form-group">
             <label for="table_number">Table Number:</label>
-            <input type="number" name="table_number" class="form-control" required>
+            <input type="number" name="table_number" class="form-control" required min="1" max="10">
         </div>
         <div class="form-group">
             <label for="reservation_date">Select Date:</label>
