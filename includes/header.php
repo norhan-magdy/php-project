@@ -40,9 +40,6 @@
           <li class="nav-item">
             <a class="nav-link" href="../customer/reservation.php">Reservations</a>
           </li>
-          <li class="nav-item">
-            <a class="nav-link" href="../customer/order.php">Order Online</a>
-          </li>
 
           <!-- User Authentication -->
           <?php if (isset($_SESSION['username'])): ?>

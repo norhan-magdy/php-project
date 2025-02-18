@@ -2,8 +2,8 @@
 
 session_start();
 
-if (isset($_SESSION['user_id'])) {
-    header('Location: ' . ($_SESSION['role'] === 'staff' ? '../dashboard/index.php' : 'dashboardUser.php'));
+if (isset($_SESSION['user_id']) && $_SESSION['role'] === 'staff') {
+    header('Location: ../dashboard/index.php');
     exit;
 }
 
