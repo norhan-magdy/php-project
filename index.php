@@ -71,6 +71,7 @@ if (isset($_SESSION['user_id'])) {
 
     <!-- Navbar -->
     <?php require_once('./includes/header.php'); ?>
+    
 
     <!-- Hero Section -->
     <div class="hero-section">
