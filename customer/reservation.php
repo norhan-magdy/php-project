@@ -3,6 +3,8 @@ include_once '../conf/conf.php';
 
 $sql = "SELECT table_number, capacity, location FROM tables";
 $result = $conn->query($sql);
+
+
 ?>
 
 <!DOCTYPE html>
@@ -11,9 +13,48 @@ $result = $conn->query($sql);
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Table Reservation</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-</head>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="./assets/CSS/style.css"></head>
+<style>
+      .order-container {
+            max-width: 800px;
+            margin: 250px auto 220px;
+            padding: 20px;
+        }
+        .order-table {
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        .logo {
+  height: 60px;
+  width: 60px;
+}
+.logo-cont {
+  margin: 0;
+  padding: 5px;
+  height: 70px;
+  width: 70px;
+  background-color: white;
+  border-radius: 50px;
+}
+/* Navbar Customization */
+.navbar {
+  background-color: #343a40 !important;
+}
+
+.navbar-brand,
+.nav-link {
+  color: white !important;
+}
+
+.nav-link:hover {
+  color: #ffc107 !important;
+  /* Hover Effect */
+}
+</style>
 <body>
+<?php require_once('../includes/header.php'); ?>
 
 <div class="container mt-5">
     <h2>Table Reservation</h2>
@@ -64,6 +105,7 @@ $result = $conn->query($sql);
         <button type="submit" class="btn btn-primary">Confirm Reservation</button>
     </form>
 </div>
+<?php require_once('../includes/footer.php'); ?>
 
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
 <script src
