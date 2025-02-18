@@ -178,3 +178,7 @@ body {
   background-color: #ffc107;
   border-radius: 2px;
 }
+
+.special:hover {
+  transform: scale(1);
+}
