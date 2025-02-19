@@ -50,13 +50,7 @@ class UserModel
     }
 
     // Update user profile
-    public function updateUser($id, $username, $email, $phone, $profile_picture)
-    {
-        $sql = "UPDATE users SET username = ?, email = ?, phone = ?, profile_picture = ? WHERE id = ?";
-        $stmt = $this->conn->prepare($sql);
-        $stmt->bind_param('ssssi', $username, $email, $phone, $profile_picture, $id);
-        return $stmt->execute();
-    }
+
 
     // Delete a user
     public function deleteUser($id)
@@ -97,4 +91,15 @@ class UserModel
         $result = $stmt->get_result();
         return $result->fetch_assoc();
     }
+
+    public function updateUser($id, $username, $email, $phone, $address, $profile_picture)
+    {
+        $sql = "UPDATE users SET username = ?, email = ?, phone = ?, address = ?, profile_picture = ? WHERE id = ?";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bind_param('sssssi', $username, $email, $phone, $address, $profile_picture, $id);
+        return $stmt->execute();
+    }
+    
+
+
 }
