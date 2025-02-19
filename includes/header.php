@@ -18,7 +18,7 @@
 
 <body>
   <!-- Navbar -->
-  <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top" style="margin-bottom: 50px;">
     <div class="container">
       <!-- Logo -->
       <a class="navbar-brand" href="../index.php">
