@@ -9,7 +9,7 @@
       </li>
       <li>
         <a href="./manage_inventory.php">
-          <i class="bi bi-box-seam"></i>
+          <i class="fa-solid fa-box"></i>
           <span>Inventory</span>
         </a>
       </li>

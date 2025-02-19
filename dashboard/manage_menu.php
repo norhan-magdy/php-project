@@ -121,12 +121,11 @@ require_once('../includes/header.php');
     </div>
 
     <div class="col py-5 mt-5">
-      <nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-4">
-        <div class="container-fluid">
-          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarToggler">
-            <span class="navbar-toggler-icon"></span>
-          </button>
-          <a class="navbar-brand" href="#">Restaurant Menu Dashboard</a>
+      <nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-4 shadow-lg rounded">
+        <div class="container-fluid d-flex align-items-center">
+          <h3 class="text-white fw-bold mb-0">
+            <i class="fa-solid fa-book-open me-2"></i> Menu Management
+          </h3>
         </div>
       </nav>
 
@@ -139,7 +138,7 @@ require_once('../includes/header.php');
         <?php unset($_SESSION['error']); ?>
       <?php endif; ?>
 
-      <div class="card shadow mb-4">
+      <div class="card shadow mb-4 special">
         <div class="card-header bg-white">
           <h5 class="mb-0"><?= $editDish ? 'Edit Dish' : 'Add New Dish' ?></h5>
         </div>
@@ -219,7 +218,7 @@ require_once('../includes/header.php');
       </div>
 
 
-      <div class="card shadow">
+      <div class="card shadow special">
         <div class="card-header bg-white">
           <h5 class="mb-0">Menu Items</h5>
         </div>
@@ -253,14 +252,14 @@ require_once('../includes/header.php');
                     </td>
                     <td>
                       <a href="?edit_id=<?= $dish['id'] ?>" class="btn btn-sm btn-warning">
-                        <i class="bi bi-pencil"></i>
+                        <i class="fa-solid fa-pencil"></i>
                       </a>
                       <form method="post" class="d-inline">
                         <input type="hidden" name="action" value="delete">
                         <input type="hidden" name="id" value="<?= $dish['id'] ?>">
                         <button type="submit" class="btn btn-sm btn-danger"
                           onclick="return confirm('Are you sure you want to delete this item?')">
-                          <i class="bi bi-trash"></i>
+                          <i class="fa-solid fa-trash"></i>
                         </button>
                       </form>
                     </td>

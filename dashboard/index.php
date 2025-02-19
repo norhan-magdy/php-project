@@ -36,19 +36,18 @@ require_once('../includes/header.php');
       <?php require_once('./sidebar.php'); ?>
     </div>
     <div class="col py-5 mt-5">
-      <nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-4">
-        <div class="container-fluid">
-          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarToggler">
-            <span class="navbar-toggler-icon"></span>
-          </button>
-          <a class="navbar-brand" href="#">Restaurant Dashboard</a>
+      <nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-4 shadow-lg rounded">
+        <div class="container-fluid d-flex align-items-center">
+          <h3 class="text-white fw-bold mb-0">
+            <i class="fa-solid fa-chart-line me-2"></i> Dashboard
+          </h3>
         </div>
       </nav>
       <div class="row mb-4">
         <div class="col-md-4">
           <div class="card shadow">
             <div class="card-body">
-              <h5 class="card-title"><i class="bi bi-cash-coin"></i> Total Sales</h5>
+              <h5 class="card-title"><i class="fas fa-coins"></i> Total Sales</h5>
               <p class="display-4">$<?= number_format($totalSales, 2) ?></p>
             </div>
           </div>
@@ -56,7 +55,7 @@ require_once('../includes/header.php');
         <div class="col-md-4">
           <div class="card shadow">
             <div class="card-body">
-              <h5 class="card-title"><i class="bi bi-list-task"></i> Active Orders</h5>
+              <h5 class="card-title"><i class="fas fa-tasks"></i> Active Orders</h5>
               <p class="display-4"><?= $activeOrders ?></p>
             </div>
           </div>
@@ -64,7 +63,7 @@ require_once('../includes/header.php');
         <div class="col-md-4">
           <div class="card shadow">
             <div class="card-body">
-              <h5 class="card-title"><i class="bi bi-calendar-check"></i> Reservations</h5>
+              <h5 class="card-title"><i class="fas fa-calendar-check"></i> Reservations</h5>
               <p class="display-4"><?= $reservations ?></p>
             </div>
           </div>
@@ -74,7 +73,7 @@ require_once('../includes/header.php');
         <div class="col-md-4">
           <div class="card shadow">
             <div class="card-body">
-              <h5 class="card-title"><i class="bi bi-egg-fried"></i> Total Items</h5>
+              <h5 class="card-title"><i class="fas fa-pizza-slice"></i> Total Items</h5>
               <p class="display-4"><?= $totalItems ?></p>
             </div>
           </div>
@@ -82,7 +81,7 @@ require_once('../includes/header.php');
         <div class="col-md-4">
           <div class="card shadow">
             <div class="card-body">
-              <h5 class="card-title"><i class="bi bi-currency-dollar"></i> Average Price</h5>
+              <h5 class="card-title"><i class="fas fa-dollar-sign"></i> Average Price</h5>
               <p class="display-4">$<?= number_format($averagePrice, 2) ?></p>
             </div>
           </div>
@@ -90,7 +89,7 @@ require_once('../includes/header.php');
         <div class="col-md-4">
           <div class="card shadow">
             <div class="card-body">
-              <h5 class="card-title"><i class="bi bi-check2-circle"></i> Available Items</h5>
+              <h5 class="card-title"><i class="fas fa-check-circle"></i> Available Items</h5>
               <p class="display-4"><?= $availableItems ?></p>
             </div>
           </div>
