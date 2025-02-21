@@ -6,31 +6,34 @@ session_start();
 require_once '../models/UserModel.php';
 
 // Initialize variables
-$username = $password = '';
+$email = $password = '';
 $errors = [];
 
 // Handle form submission
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $username = trim($_POST['username']);
     $password = trim($_POST['password']);
+    $email = trim($_POST['email']);
+
 
     // Validate inputs
-    if (empty($username)) $errors['username'] = 'Username is required.';
+    if (empty($username)) $errors['email'] = 'email is required.';
     if (empty($password)) $errors['password'] = 'Password is required.';
 
     if (empty($errors)) {
         $userModel = new UserModel();
-        $user = $userModel->getUserByUsername($username);
+        $user = $userModel->getUserByEmail($email);
 
         if ($user && password_verify($password, $user['password'])) {
             $_SESSION['user_id'] = $user['id'];
-            $_SESSION['username'] = $user['username'];
+            $_SESSION['email'] = $user['email'];
             $_SESSION['role'] = $user['role'];
+            $_SESSION['username'] = $user['username'];
+
 
             header('Location: ../index.php ');
             exit;
         } else {
-            $errors['general'] = 'Invalid username or password.';
+            $errors['general'] = 'Invalid email or password.';
         }
     }
 }
@@ -111,10 +114,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <form method="POST" action="login.php">
                 <!-- Username Field -->
                 <div class="mb-3">
-                    <label for="username" class="form-label">Username</label>
-                    <input type="text" name="username" id="username" class="form-control" value="<?= htmlspecialchars($username) ?>">
-                    <?php if (!empty($errors['username'])): ?>
-                        <div class="text-danger small"><?= $errors['username'] ?></div>
+                    <label for="email" class="form-label">Email
+                    </label>
+                    <input type="text" name="email" id="email" class="form-control" value="<?= htmlspecialchars($email) ?>">
+                    <?php if (!empty($errors['email'])): ?>
+                        <div class="text-danger small"><?= $errors['email'] ?></div>
                     <?php endif; ?>
                 </div>
 
