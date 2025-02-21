@@ -3,7 +3,7 @@ session_start();
 require_once '../models/CategoryModel.php';
 require_once '../models/DishModel.php';
 require_once '../models/SpecialOfferModel.php';
-require_once '../models/CartModel.php';
+require_once '../controller/CartModel.php';
 
 $categoryModel = new CategoryModel();
 $dishModel = new DishModel();

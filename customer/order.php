@@ -10,7 +10,7 @@ if (isset($_SESSION['user_id']) && $_SESSION['role'] === 'staff') {
 // Include modules
 require_once '../models/OrderModel.php';
 require_once '../models/OrderItemModel.php';
-require_once '../models/CartModel.php';
+require_once '../controller/CartModel.php';
 
 // Initialize models
 $orderModel = new OrderModel();
@@ -22,8 +22,8 @@ if (!isset($_SESSION['user_id'])) {
     exit();
 }
 
-
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+// Handle adding items to the cart
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['dish_id'])) {
     $dish_id = $_POST['dish_id'];
     $dish_name = $_POST['dish_name'];
     $dish_price = $_POST['dish_price'];
@@ -35,17 +35,40 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Redirect back to the previous page
     $referer = $_SERVER['HTTP_REFERER'] ?? 'menu.php';
     header("Location: $referer");
-    exit();}
-
-
-
-
-// Check if the cart is empty
-$cart = CartModel::getCart();
-if (empty($cart)) {
-    header('Location: ./menu.php'); // Redirect to menu or cart page instead
     exit();
 }
+
+
+
+
+// Handle deleting items from the cart
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['delete_item'])) {
+    $dish_id = $_POST['delete_item'];
+
+    // Remove the item from the cart
+    CartModel::removeFromCart($dish_id);
+
+    // Check if the cart is empty after deletion
+    $cart = CartModel::getCart();
+    if (empty($cart)) {
+        header('Location: ./menu.php'); // Redirect to menu if cart is empty
+        exit();
+    }
+
+    // Redirect back to the order page if cart is not empty
+    header("Location: order.php");
+    exit();
+}
+
+// Check if the cart is empty (initial load or after other operations)
+$cart = CartModel::getCart();
+if (empty($cart)) {
+    header('Location: ./menu.php'); // Redirect to menu if cart is empty
+    exit();
+}
+
+
+
 
 // Calculate the total price
 $total_price = 0;
@@ -53,14 +76,13 @@ foreach ($cart as $item) {
     $total_price += $item['dish_price'] * $item['quantity'];
 }
 
-// Handle form submission
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+// Handle form submission for placing the order
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['address'])) {
     // Get form data
     $address = $_POST['address'];
     $payment_method = $_POST['payment_method'];
-    // var_dump($address, $payment_method);
 
-    // // Create the order
+    // Create the order
     $order_id = $orderModel->createOrder($_SESSION['user_id'], $total_price, $address, $payment_method);
 
     // Add order items
@@ -136,9 +158,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 <body>
     <!-- Header -->
-
     <?php require_once('../includes/header.php'); ?>
-
 
     <div class="order-container">
         <h2 class="mb-4">Place Your Order</h2>
@@ -150,6 +170,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         <th>Quantity</th>
                         <th>Price</th>
                         <th>Total</th>
+                        <th>Action</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -159,6 +180,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                             <td><?= htmlspecialchars($item['quantity']) ?></td>
                             <td>$<?= number_format($item['dish_price'], 2) ?></td>
                             <td>$<?= number_format($item['dish_price'] * $item['quantity'], 2) ?></td>
+                            <td>
+                                <form action="" method="POST" style="display: inline;">
+                                    <input type="hidden" name="delete_item" value="<?= $item['dish_id'] ?>">
+                                    <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                                </form>
+                            </td>
                         </tr>
                     <?php endforeach; ?>
                 </tbody>
