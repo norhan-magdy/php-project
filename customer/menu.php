@@ -43,22 +43,24 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['add_to_cart'])) {
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Menu</title>
-    
+
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="../assets/CSS/style.css">
-    
+
     <style>
         /* Navbar */
         .navbar {
             background-color: #343a40 !important;
         }
 
-        .navbar-brand, .nav-link {
+        .navbar-brand,
+        .nav-link {
             color: white !important;
         }
 
@@ -82,14 +84,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['add_to_cart'])) {
         /* Sidebar Styling */
         .sidebar {
             position: fixed;
-            top: 70px; /* Adjust based on header height */
+            top: 70px;
+            /* Adjust based on header height */
             left: 0;
-            height: calc(100vh - 70px); /* Full height minus header */
+            height: calc(100vh - 70px);
+            /* Full height minus header */
             width: 250px;
             background-color: #343a40;
             color: white;
             padding: 20px;
-            overflow-y: auto; /* Enable scrolling if content overflows */
+            overflow-y: auto;
+            /* Enable scrolling if content overflows */
         }
 
         .sidebar h3 {
@@ -124,12 +129,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['add_to_cart'])) {
             color: #ffc107;
             background-color: rgba(255, 255, 255, 0.1);
             font-weight: bold;
-            border-left: 4px solid #ffc107; /* Add a left border for active state */
+            border-left: 4px solid #ffc107;
+            /* Add a left border for active state */
         }
 
         /* Main Content Styling */
         .main-content {
-            margin: 80px 50px 0 270px; /* Same as sidebar width */
+            margin: 80px 50px 0 270px;
+            /* Same as sidebar width */
             padding: 20px;
         }
 
@@ -252,7 +259,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['add_to_cart'])) {
         <div id="special-offers" class="special-offer-section">
             <h2>Special Offers</h2>
             <div class="row g-4">
-                <?php foreach ($specialOffers as $offer): ?>
+            <?php foreach ($specialOffers as $offer): ?>
+                <?php if ($offer['id'] == 1): ?>
                     <div class="col-lg-4 col-md-6">
                         <div class="card h-100 shadow-sm">
                             <div class="card-body">
@@ -265,20 +273,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['add_to_cart'])) {
                                 <p class="card-text">
                                     Expires on: <?= htmlspecialchars($offer['expiry_date']) ?>
                                 </p>
-                                           <!-- Add to Cart Form -->
-                        <form action="menu.php" method="POST" class="mt-3">
-                            <input type="hidden" name="dish_id" value="<?= $offer['id'] ?>">
-                            <input type="hidden" name="dish_name" value="<?= $offer['name'] ?>">
-                            <input type="hidden" name="dish_price" value="0"> <!-- Special offers are free or discounted -->
-                            <input type="hidden" name="add_to_cart" value="1">
-                            <div class="input-group mb-3">
-                                <input type="number" name="quantity" class="form-control" value="1" min="1" required>
-                                <button type="submit" class="btn btn-primary">Add to Cart</button>
-                            </div>
-                        </form>
+                                <div class="input-group mb-3 d-flex justify-content-center">
+                                    <!-- Link to Special Offer Details Page -->
+                                    <a href="special_offer_details.php?id=<?= $offer['id'] ?>"
+                                        class="btn btn-primary">View Details</a>
+                                </div>
                             </div>
                         </div>
                     </div>
+                <?php endif; ?>
                 <?php endforeach; ?>
             </div>
         </div>
@@ -303,8 +306,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['add_to_cart'])) {
                                     <span class="badge <?= $dish['availability'] ? 'bg-success' : 'bg-danger' ?>">
                                         <?= $dish['availability'] ? 'Available' : 'Not Available' ?>
                                     </span>
-                                      <!-- Add to Cart Form -->
-                                      <form action="menu.php" method="POST" class="mt-3">
+                                    <!-- Add to Cart Form -->
+                                    <form action="menu.php" method="POST" class="mt-3">
                                         <input type="hidden" name="dish_id" value="<?= $dish['id'] ?>">
                                         <input type="hidden" name="dish_name" value="<?= $dish['name'] ?>">
                                         <input type="hidden" name="dish_price" value="<?= $dish['price'] ?>">
@@ -323,13 +326,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['add_to_cart'])) {
         <?php endforeach; ?>
     </div>
 
+    <?php require_once('../includes/footer.php'); ?>
+
 
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
     <!-- JavaScript for Active Category Highlighting -->
     <script>
-        document.addEventListener('DOMContentLoaded', function () {
+        document.addEventListener('DOMContentLoaded', function() {
             const categoryLinks = document.querySelectorAll('.sidebar ul li a');
             const categorySections = document.querySelectorAll('.category-section, .special-offer-section');
 
@@ -368,14 +373,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['add_to_cart'])) {
 
             // Smooth scroll to the target section when a sidebar link is clicked
             categoryLinks.forEach(link => {
-                link.addEventListener('click', function (e) {
+                link.addEventListener('click', function(e) {
                     e.preventDefault(); // Prevent default anchor behavior
                     const targetId = this.getAttribute('data-target');
                     const targetSection = document.getElementById(targetId);
 
                     if (targetSection) {
                         // Scroll to the target section smoothly
-                        targetSection.scrollIntoView({ behavior: 'smooth' });
+                        targetSection.scrollIntoView({
+                            behavior: 'smooth'
+                        });
 
                         // Highlight the active link
                         categoryLinks.forEach(link => link.classList.remove('active'));
@@ -386,4 +393,5 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['add_to_cart'])) {
         });
     </script>
 </body>
+
 </html>
