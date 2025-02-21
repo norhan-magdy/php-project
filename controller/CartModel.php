@@ -48,6 +48,13 @@ class CartModel {
             $_SESSION['cart'] = array_values($_SESSION['cart']);
         }
     }
+    public static function removeFromCart($dish_id) {
+        if (isset($_SESSION['cart'][$dish_id])) {
+            unset($_SESSION['cart'][$dish_id]);
+        }
+    }
+    
+    
 }
 
 ?>

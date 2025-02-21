@@ -10,7 +10,7 @@ if (isset($_SESSION['user_id']) && $_SESSION['role'] === 'staff') {
 require_once '../models/CategoryModel.php';
 require_once '../models/DishModel.php';
 require_once '../models/SpecialOfferModel.php';
-require_once '../models/CartModel.php';
+require_once '../controller/CartModel.php';
 
 // Initialize models
 $categoryModel = new CategoryModel();

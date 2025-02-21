@@ -3,7 +3,7 @@ session_start();
 // Include the database configuration and models
 require_once '../conf/conf.php';
 require_once '../models/SpecialOfferModel.php';
-require_once '../models/CartModel.php';
+require_once '../controller/CartModel.php';
 
 // Initialize the model with the database connection
 $offerModel = new SpecialOfferModel($conn);
