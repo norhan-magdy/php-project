@@ -22,6 +22,24 @@ if (!isset($_SESSION['user_id'])) {
     exit();
 }
 
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $dish_id = $_POST['dish_id'];
+    $dish_name = $_POST['dish_name'];
+    $dish_price = $_POST['dish_price'];
+    $quantity = $_POST['quantity'];
+
+    // Add the item to the cart
+    CartModel::addToCart($dish_id, $dish_name, $dish_price, $quantity);
+
+    // Redirect back to the previous page
+    $referer = $_SERVER['HTTP_REFERER'] ?? 'menu.php';
+    header("Location: $referer");
+    exit();}
+
+
+
+
 // Check if the cart is empty
 $cart = CartModel::getCart();
 if (empty($cart)) {
