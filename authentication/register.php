@@ -50,7 +50,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $existingUser = $userModel->getUserByUsernameOrEmail($username, $email);
         if ($existingUser) {
             if ($existingUser['username'] === $username) {
-                $errors['username'] = 'Username already taken.';
+                $errors['username'] = 'Sorry, this username is already in use. It can only contain letters, numbers, and underscores ( _ ).';
             }
             if ($existingUser['email'] === $email) {
                 $errors['email'] = 'Email already registered.';
@@ -66,6 +66,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 // Auto-login the user
                 $_SESSION['user_id'] = $user_id;
                 $_SESSION['username'] = $username;
+                $_SESSION['email'] = $email;
                 $_SESSION['role'] = 'customer'; // Default role
 
                 // Redirect to login page

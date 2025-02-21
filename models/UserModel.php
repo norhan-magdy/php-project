@@ -92,6 +92,16 @@ class UserModel
         return $result->fetch_assoc();
     }
 
+    public function getUserByEmail($email)
+    {
+        $sql = "SELECT * FROM users WHERE email = ?";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bind_param('s', $email);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        return $result->fetch_assoc();
+    }
+
     public function updateUser($id, $username, $email, $phone, $address, $profile_picture)
     {
         $sql = "UPDATE users SET username = ?, email = ?, phone = ?, address = ?, profile_picture = ? WHERE id = ?";
