@@ -17,7 +17,7 @@ class  OrderModel
     {
         $sql = "INSERT INTO orders (user_id, total_price, address,phone, payment_method, payment_status, status) VALUES (?,?,?,?, ?, 'pending', 'pending')";
         $stmt = $this->conn->prepare($sql);
-        $stmt->bind_param("idss", $user_id, $total_price, $address,$phone, $payment_method);
+        $stmt->bind_param("idsss", $user_id, $total_price, $address,$phone, $payment_method);
         $stmt->execute();
         $order_id = $stmt->insert_id; // Get the ID of the newly created order
         $stmt->close();
