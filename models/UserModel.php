@@ -109,6 +109,16 @@ class UserModel
         $stmt->bind_param('sssssi', $username, $email, $phone, $address, $profile_picture, $id);
         return $stmt->execute();
     }
+
+    public function getUserDetails($user_id)
+    {
+        $sql = "SELECT address, phone FROM users WHERE id = ?";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bind_param("i", $user_id);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        return $result->fetch_assoc();
+    }
     
 
 
