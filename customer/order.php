@@ -45,20 +45,21 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['dish_id'])) {
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['delete_item'])) {
     $dish_id = $_POST['delete_item'];
 
-    // Remove the item from the cart
+    // Remove the item from the cart (or decrease quantity)
     CartModel::removeFromCart($dish_id);
 
     // Check if the cart is empty after deletion
     $cart = CartModel::getCart();
     if (empty($cart)) {
-        header('Location: ./menu.php'); // Redirect to menu if cart is empty
+        header('Location: ./menu.php');
         exit();
     }
 
-    // Redirect back to the order page if cart is not empty
+    // Redirect back to the order page
     header("Location: order.php");
     exit();
 }
+
 
 // Check if the cart is empty (initial load or after other operations)
 $cart = CartModel::getCart();
@@ -81,9 +82,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['address'])) {
     // Get form data
     $address = $_POST['address'];
     $payment_method = $_POST['payment_method'];
+    $phone = $_POST['phone'];
 
     // Create the order
-    $order_id = $orderModel->createOrder($_SESSION['user_id'], $total_price, $address, $payment_method);
+    $order_id = $orderModel->createOrder($_SESSION['user_id'], $total_price, $address,$phone, $payment_method);
 
     // Add order items
     $orderItemModel->addOrderItems($order_id, $cart);
@@ -197,6 +199,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['address'])) {
                     <div class="mb-3">
                         <label for="address" class="form-label">Delivery Address</label>
                         <textarea class="form-control" id="address" name="address" rows="3" required></textarea>
+                    </div>
+
+                    <!-- Phone Number -->
+                    <div class="mb-3">
+                        <label for="phone" class="form-label">Phone Number</label>
+                        <input type="text" class="form-control" id="phone" name="phone" required>
                     </div>
 
                     <!-- Payment Method Selection -->

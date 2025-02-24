@@ -35,7 +35,7 @@ $address = !empty($user['address']) ? $user['address'] : 'Not provided';
     <style>
         .profile-card {
             max-width: 500px;
-            margin: auto;
+            margin: 180px auto ;
             text-align: center;
             background: #fff;
             padding: 30px;

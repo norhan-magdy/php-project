@@ -13,11 +13,11 @@ class  OrderModel
         $this->conn = $conn;
     }
     // Create a new order
-    public function createOrder($user_id, $total_price, $address, $payment_method)
+    public function createOrder($user_id, $total_price, $address,$phone, $payment_method)
     {
-        $sql = "INSERT INTO orders (user_id, total_price, address, payment_method, payment_status, status) VALUES (?,?,?, ?, 'pending', 'pending')";
+        $sql = "INSERT INTO orders (user_id, total_price, address,phone, payment_method, payment_status, status) VALUES (?,?,?,?, ?, 'pending', 'pending')";
         $stmt = $this->conn->prepare($sql);
-        $stmt->bind_param("idss", $user_id, $total_price, $address, $payment_method);
+        $stmt->bind_param("idss", $user_id, $total_price, $address,$phone, $payment_method);
         $stmt->execute();
         $order_id = $stmt->insert_id; // Get the ID of the newly created order
         $stmt->close();
