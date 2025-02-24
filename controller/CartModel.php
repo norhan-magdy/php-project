@@ -48,9 +48,32 @@ class CartModel {
             $_SESSION['cart'] = array_values($_SESSION['cart']);
         }
     }
-    public static function removeFromCart($dish_id) {
-        if (isset($_SESSION['cart'][$dish_id])) {
-            unset($_SESSION['cart'][$dish_id]);
+  
+
+    public static function removeFromCart($dish_id)
+    {
+        // Check if the cart exists and is not empty
+        if (!isset($_SESSION['cart']) || empty($_SESSION['cart'])) {
+            return;
+        }
+
+        // Find the index of the item with the given dish_id
+        $item_index = array_search(
+            $dish_id,
+            array_column($_SESSION['cart'], 'dish_id')
+        );
+
+        // If the item exists in the cart
+        if ($item_index !== false) {
+            if ($_SESSION['cart'][$item_index]['quantity'] > 1) {
+                // Decrease quantity by 1
+                $_SESSION['cart'][$item_index]['quantity']--;
+            } else {
+                // Remove the item entirely
+                unset($_SESSION['cart'][$item_index]);
+                // Re-index the array to prevent gaps in keys
+                $_SESSION['cart'] = array_values($_SESSION['cart']);
+            }
         }
     }
     
