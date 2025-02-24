@@ -8,11 +8,13 @@ if (isset($_SESSION['user_id']) && $_SESSION['role'] === 'staff') {
 }
 
 // Include modules
+require_once '../models/UserModel.php';
 require_once '../models/OrderModel.php';
 require_once '../models/OrderItemModel.php';
 require_once '../controller/CartModel.php';
 
 // Initialize models
+$userModel = new UserModel();
 $orderModel = new OrderModel();
 $orderItemModel = new OrderItemModel();
 
@@ -21,6 +23,11 @@ if (!isset($_SESSION['user_id'])) {
     header('Location: ../authentication/login.php');
     exit();
 }
+
+// Fetch user details
+$userDetails = $userModel->getUserDetails($_SESSION['user_id']);
+$defaultAddress = $userDetails['address'] ?? '';
+$defaultPhone = $userDetails['phone'] ?? '';
 
 // Handle adding items to the cart
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['dish_id'])) {
@@ -85,7 +92,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['address'])) {
     $phone = $_POST['phone'];
 
     // Create the order
-    $order_id = $orderModel->createOrder($_SESSION['user_id'], $total_price, $address,$phone, $payment_method);
+    $order_id = $orderModel->createOrder($_SESSION['user_id'], $total_price, $address, $phone, $payment_method);
 
     // Add order items
     $orderItemModel->addOrderItems($order_id, $cart);
@@ -198,13 +205,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['address'])) {
                     <!-- Address Input -->
                     <div class="mb-3">
                         <label for="address" class="form-label">Delivery Address</label>
-                        <textarea class="form-control" id="address" name="address" rows="3" required></textarea>
+                        <textarea class="form-control" id="address" name="address" rows="3" required><?= htmlspecialchars($defaultAddress) ?></textarea>
                     </div>
 
                     <!-- Phone Number -->
                     <div class="mb-3">
                         <label for="phone" class="form-label">Phone Number</label>
-                        <input type="text" class="form-control" id="phone" name="phone" required>
+                        <input type="text" class="form-control" id="phone" name="phone" value="<?= htmlspecialchars($defaultPhone) ?>" required>
                     </div>
 
                     <!-- Payment Method Selection -->
