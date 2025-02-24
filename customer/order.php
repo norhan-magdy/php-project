@@ -101,7 +101,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['address'])) {
     CartModel::clearCart();
 
     // Redirect to a success page
-    header('Location: ../customer/order-success.php');
+    header('Location: order_success.php');
     exit();
 }
 ?>
