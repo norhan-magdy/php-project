@@ -41,7 +41,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     }
 
     if (!$error) {
-        $userModel->updateUser($user_id, $username, $email, $phone, $address, $profile_picture);
+        $userModel->updateUser($user_id, $phone, $address, $profile_picture);
         header("Location: profile.php");
         exit();
     }
@@ -73,17 +73,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 <form method="post" enctype="multipart/form-data">
                     <div class="text-center mb-3">
                         <img src="../uploads/<?php echo htmlspecialchars($user['profile_picture'] ?: 'default.png'); ?>" 
-                             alt="Profile Picture" class="rounded-circle" width="120" height="120">
+                             alt="Profile Picture" class="img-fluid img-thumbnail" width="200" height="120">
                     </div>
-                    
-                    <div class="mb-3">
-                        <label class="form-label">Username</label>
-                        <input type="text" name="username" class="form-control" value="<?php echo htmlspecialchars($user['username']); ?>" required>
-                    </div>
-                    <div class="mb-3">
-                        <label class="form-label">Email</label>
-                        <input type="email" name="email" class="form-control" value="<?php echo htmlspecialchars($user['email']); ?>" required>
-                    </div>
+
                     <div class="mb-3">
                         <label class="form-label">Phone</label>
                         <input type="text" name="phone" class="form-control" value="<?php echo htmlspecialchars($user['phone']); ?>">

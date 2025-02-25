@@ -102,11 +102,11 @@ class UserModel
         return $result->fetch_assoc();
     }
 
-    public function updateUser($id, $username, $email, $phone, $address, $profile_picture)
+    public function updateUser($id, $phone, $address, $profile_picture)
     {
-        $sql = "UPDATE users SET username = ?, email = ?, phone = ?, address = ?, profile_picture = ? WHERE id = ?";
+        $sql = "UPDATE users SET  phone = ?, address = ?, profile_picture = ? WHERE id = ?";
         $stmt = $this->conn->prepare($sql);
-        $stmt->bind_param('sssssi', $username, $email, $phone, $address, $profile_picture, $id);
+        $stmt->bind_param('sssi',  $phone, $address, $profile_picture, $id);
         return $stmt->execute();
     }
 
