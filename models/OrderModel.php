@@ -39,6 +39,16 @@ class  OrderModel
         return $stmt->execute();
     }
 
+    public function getOrderDetails($order_id)
+    {
+        $sql = "SELECT * FROM orders WHERE id = ?";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bind_param("i", $order_id);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        return $result->fetch_assoc();
+    }
+
     public function deleteOrder($orderId)
     {
         $sql = "DELETE FROM orders WHERE id = ?";
