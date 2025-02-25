@@ -75,9 +75,6 @@ if (empty($cart)) {
     exit();
 }
 
-
-
-
 // Calculate the total price
 $total_price = 0;
 foreach ($cart as $item) {
@@ -101,7 +98,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['address'])) {
     CartModel::clearCart();
 
     // Redirect to a success page
-    header('Location: order_success.php');
+    header("Location: ../customer/order_success.php?order_id=" . $order_id);
     exit();
 }
 ?>
@@ -118,9 +115,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['address'])) {
     <link rel="stylesheet" href="../css/style.css">
     <style>
         .order-container {
-            max-width: 800px;
-            margin: 250px auto 220px;
-            padding: 20px;
+            width: 600px;
+            padding: 50px;
+            margin: 100px auto ;
         }
 
         .order-table {
@@ -165,7 +162,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['address'])) {
     </style>
 </head>
 
-<body>
+<body class="d-flex flex-column min-vh-100">
     <!-- Header -->
     <?php require_once('../includes/header.php'); ?>
 
