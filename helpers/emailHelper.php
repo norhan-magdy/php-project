@@ -8,16 +8,17 @@ use PHPMailer\PHPMailer\Exception;
 require_once __DIR__ . '/../vendor/autoload.php';
 
 function sendEmail($to, $subject, $body) {
-    $config = require __DIR__ . '/../config/email.php';
+    $config = require __DIR__ . '/../conf/email.php';
 
     $mail = new PHPMailer(true);
 
     try {
-
-        // Enable SMTP debugging (0 = off, 2 = detailed debug)
-        $mail->SMTPDebug = 2;
-
-        // $mail->SMTPDebug = 0; // Disable debug output
+        // Enable SMTP debugging and show output on screen
+        $mail->SMTPDebug = 2; // 2 for detailed debugging
+        $mail->Debugoutput = function($str, $level) { 
+            echo "SMTP Debug [$level]: $str<br>"; // Show errors on screen
+            error_log("SMTP Debug [$level]: $str"); // Log errors to terminal
+        };
 
         // Server settings
         $mail->isSMTP();
@@ -37,10 +38,21 @@ function sendEmail($to, $subject, $body) {
         $mail->Subject = $subject;
         $mail->Body    = $body;
 
+        // Debugging log
+        error_log("Attempting to send email to: " . $to);
+        echo "Attempting to send email to: " . $to . "<br>"; // Show on screen
+
         $mail->send();
+
+        // Log success
+        error_log("Email successfully sent to: " . $to);
+        echo "Email successfully sent to: " . $to . "<br>"; // Show on screen
+
         return true;
     } catch (Exception $e) {
-        error_log("Email could not be sent. Mailer Error: {$mail->ErrorInfo}");
+        error_log("Email could not be sent. Mailer Error: " . $mail->ErrorInfo);
+        echo "Email could not be sent. Mailer Error: " . $mail->ErrorInfo . "<br>"; // Show on screen
         return false;
     }
 }
+

@@ -13,43 +13,46 @@ class ReservationController {
     }
 
     public function createReservation() {
-        // Retrieve form data (ensure you validate and sanitize these in real usage)
-        $user_id          = $_POST['user_id'];          // Usually from session data
+        // Retrieve form data
+        $user_id          = $_POST['user_id']; 
         $table_id         = $_POST['table_id'];
         $reservation_date = $_POST['reservation_date'];
         $guests           = $_POST['guests'];
         $customer_email   = $_POST['email'];
-
-        // Log the customer email for debugging
-        error_log("Customer email: " . $customer_email);
-
+    
+        // Debug: Log reservation attempt
+        error_log("Received reservation request: user_id=$user_id, table_id=$table_id, date=$reservation_date, guests=$guests, email=$customer_email");
+    
         // Create the reservation in the database
         $reservationId = $this->reservationModel->createReservation($user_id, $table_id, $reservation_date, $guests);
-
-        // Prepare the email content
-        $subject = "Reservation Confirmation";
-        $body = "
-            <h1>Your Reservation is Confirmed!</h1>
-            <p>Dear Customer,</p>
-            <p>Thank you for reserving a table at our restaurant.</p>
-            <p>Your reservation for {$guests} guest(s) on {$reservation_date} has been successfully created.</p>
-            <p>We look forward to serving you!</p>
-            <p>Best regards,<br>Your Restaurant Team</p>
-        ";
-
-        // Send the confirmation email with improved error handling
-    try {
-        if (sendEmail($customer_email, $subject, $body)) {
-            echo "Reservation created and confirmation email sent.";
-        } else {
-            error_log("Error sending confirmation email to " . $customer_email);
+    
+        // Debug: Confirm reservation creation
+        if (!$reservationId) {
+            error_log("Failed to create reservation!");
+            echo "Reservation creation failed.";
+            return;
+        }
+        error_log("Reservation created successfully! ID: $reservationId");
+    
+        // Debug: Log before sending email
+        error_log("Attempting to send reservation confirmation email to: " . $customer_email);
+        echo "Attempting to send reservation confirmation email to: " . $customer_email . "<br>";
+    
+        // Send the confirmation email
+        try {
+            if (sendEmail($customer_email, "Reservation Confirmation", "<h1>Your Reservation is Confirmed!</h1><p>Thank you for reserving a table!</p>")) {
+                error_log("Reservation email sent successfully to: " . $customer_email);
+                echo "Reservation created and confirmation email sent.";
+            } else {
+                error_log("Error sending confirmation email to: " . $customer_email);
+                echo "Reservation created, but there was an error sending the confirmation email.";
+            }
+        } catch (Exception $ex) {
+            error_log("Exception while sending email: " . $ex->getMessage());
             echo "Reservation created, but there was an error sending the confirmation email.";
         }
-    } catch (Exception $ex) {
-        error_log("Exception while sending email: " . $ex->getMessage());
-        echo "Reservation created, but there was an error sending the confirmation email.";
     }
-    }
+    
 }
 
 // If this file is accessed directly via a POST request, execute the creation method
