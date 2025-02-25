@@ -20,6 +20,9 @@ class ReservationController {
         $guests           = $_POST['guests'];
         $customer_email   = $_POST['email'];
 
+        // Log the customer email for debugging
+        error_log("Customer email: " . $customer_email);
+
         // Create the reservation in the database
         $reservationId = $this->reservationModel->createReservation($user_id, $table_id, $reservation_date, $guests);
 
@@ -34,12 +37,18 @@ class ReservationController {
             <p>Best regards,<br>Your Restaurant Team</p>
         ";
 
-        // Send the confirmation email
+        // Send the confirmation email with improved error handling
+    try {
         if (sendEmail($customer_email, $subject, $body)) {
             echo "Reservation created and confirmation email sent.";
         } else {
+            error_log("Error sending confirmation email to " . $customer_email);
             echo "Reservation created, but there was an error sending the confirmation email.";
         }
+    } catch (Exception $ex) {
+        error_log("Exception while sending email: " . $ex->getMessage());
+        echo "Reservation created, but there was an error sending the confirmation email.";
+    }
     }
 }
 

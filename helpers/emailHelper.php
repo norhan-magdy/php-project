@@ -13,6 +13,12 @@ function sendEmail($to, $subject, $body) {
     $mail = new PHPMailer(true);
 
     try {
+
+        // Enable SMTP debugging (0 = off, 2 = detailed debug)
+        $mail->SMTPDebug = 2;
+
+        // $mail->SMTPDebug = 0; // Disable debug output
+
         // Server settings
         $mail->isSMTP();
         $mail->Host       = $config['host'];
