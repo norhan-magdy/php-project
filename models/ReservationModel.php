@@ -11,15 +11,7 @@ class ReservationModel
         $this->conn = $conn;
     }
 
-    // Create a new reservation
-    public function createReservation($user_id, $table_id, $reservation_date, $guests)
-    {
-        $sql = "INSERT INTO reservations (user_id, table_id, reservation_date, guests) VALUES (?, ?, ?, ?)";
-        $stmt = $this->conn->prepare($sql);
-        $stmt->bind_param('iisi', $user_id, $table_id, $reservation_date, $guests);
-        $stmt->execute();
-        return $stmt->insert_id;
-    }
+
 
     // Get all reservations
     public function getAllReservations()
@@ -56,5 +48,27 @@ class ReservationModel
         $stmt = $this->conn->prepare($sql);
         $stmt->bind_param('i', $id);
         return $stmt->execute();
+    }
+
+    public function createReservation($user_id, $table_id, $reservation_date, $guests)
+    {
+        $stmt = $this->conn->prepare("INSERT INTO reservations (user_id, table_id, reservation_date, guests) VALUES (?, ?, ?, ?)");
+        $stmt->bind_param("iisi", $user_id, $table_id, $reservation_date, $guests);
+        return $stmt->execute() ? $this->conn->insert_id : false;
+    }
+
+    public function isTableAvailable($table_id, $reservation_date)
+    {
+        $stmt = $this->conn->prepare("SELECT * FROM reservations WHERE table_id = ? AND reservation_date = ?");
+        $stmt->bind_param("is", $table_id, $reservation_date);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        return $result->num_rows === 0;
+    }
+
+    public function getAllTables()
+    {
+        $result = $this->conn->query("SELECT * FROM tables");
+        return $result->fetch_all(MYSQLI_ASSOC);
     }
 }
