@@ -57,139 +57,247 @@ $supplierMap = array_column($suppliers, 'name', 'id');
 
 require_once('../includes/header.php');
 ?>
-
-<div class="container">
-  <div class="row flex-nowrap">
-    <div class="col-auto col-md-3 col-xl-2 px-sm-2 px-0">
-      <?php require_once('./sidebar.php'); ?>
+<div class="page d-flex">
+  <?php require_once('./sidebar.php'); ?>
+  <div class="content w-full bg-light">
+    <div class="head bg-red c-white p-15 between-flex">
+      <h2 class="m-0">
+        <i class="fa-solid fa-boxes-stacked mr-10"></i>
+        Inventory Management
+      </h2>
+      <div class="d-flex align-center">
+        <span class="fs-14"><?= date('F j, Y') ?></span>
+      </div>
     </div>
 
-    <div class="col py-5 mt-5">
-      <nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-4 shadow-lg rounded">
-        <div class="container-fluid d-flex align-items-center">
-          <h3 class="text-white fw-bold mb-0">
-            <i class="fa-solid fa-boxes-stacked me-2"></i> Inventory Management
-          </h3>
-        </div>
-      </nav>
-
+    <div class="wrapper d-grid gap-20 p-20" style="grid-template-columns: 1fr;">
       <?php if (isset($_SESSION['success'])): ?>
-        <div class="alert alert-success"><?= $_SESSION['success'] ?></div>
+        <div class="alert bg-green c-white p-10 rad-6 fs-14">
+          <?= $_SESSION['success'] ?>
+        </div>
         <?php unset($_SESSION['success']); ?>
       <?php endif; ?>
       <?php if (isset($_SESSION['error'])): ?>
-        <div class="alert alert-danger"><?= $_SESSION['error'] ?></div>
+        <div class="alert bg-red c-white p-10 rad-6 fs-14">
+          <?= $_SESSION['error'] ?>
+        </div>
         <?php unset($_SESSION['error']); ?>
       <?php endif; ?>
 
-      <div class="card shadow mb-4 special">
-        <div class="card-header bg-white">
-          <h5 class="mb-0"><?= $editItem ? 'Edit Inventory Item' : 'Add New Inventory Item' ?></h5>
+      <div class="dashboard-card bg-white rad-10 p-20 border-top-red">
+        <div class="between-flex mb-20">
+          <div class="d-flex align-center gap-10">
+            <h3 class="m-0 c-red fs-22">
+              <?= $editItem ? '✏️ Edit Inventory Item' : '📦 Add New Item' ?>
+            </h3>
+          </div>
+          <i class="fa-solid fa-warehouse fa-2x c-red"></i>
         </div>
-        <div class="card-body">
-          <form method="post">
-            <?php if ($editItem): ?>
-              <input type="hidden" name="action" value="update">
-              <input type="hidden" name="id" value="<?= $editItem['id'] ?>">
-            <?php else: ?>
-              <input type="hidden" name="action" value="add">
-            <?php endif; ?>
 
-            <div class="row g-3">
+        <form method="post">
+          <?php if ($editItem): ?>
+            <input type="hidden" name="action" value="update">
+            <input type="hidden" name="id" value="<?= $editItem['id'] ?>">
+          <?php else: ?>
+            <input type="hidden" name="action" value="add">
+          <?php endif; ?>
+
+          <div class="d-grid gap-25">
+            <div class="row g-4">
               <div class="col-md-6">
-                <label for="item_name" class="form-label">Item Name</label>
-                <input type="text" class="form-control" id="item_name" name="item_name"
-                  value="<?= htmlspecialchars($editItem['item_name'] ?? '') ?>" required>
+                <div class="form-group">
+                  <label class="d-block mb-8 c-grey fs-16 fw-bold">Item Name</label>
+                  <div class="input-field bg-eee rad-6 p-relative">
+                    <input type="text" class="b-none bg-transparent p-10 w-full fs-14"
+                      name="item_name"
+                      value="<?= htmlspecialchars($editItem['item_name'] ?? '') ?>"
+                      required>
+                    <i class="fa-regular fa-keyboard p-absolute c-grey"
+                      style="right: 15px; top: 50%; transform: translateY(-50%);"></i>
+                  </div>
+                </div>
               </div>
 
               <div class="col-md-6">
-                <label for="quantity" class="form-label">Quantity</label>
-                <input type="number" class="form-control" id="quantity" name="quantity"
-                  value="<?= $editItem['quantity'] ?? 0 ?>" required>
+                <div class="form-group">
+                  <label class="d-block mb-8 c-grey fs-16 fw-bold">Quantity</label>
+                  <div class="input-field bg-eee rad-6 p-relative">
+                    <input type="number" class="b-none bg-transparent p-10 w-full fs-14"
+                      name="quantity"
+                      value="<?= $editItem['quantity'] ?? 0 ?>"
+                      required>
+                    <i class="fa-solid fa-hashtag p-absolute c-grey"
+                      style="right: 15px; top: 50%; transform: translateY(-50%);"></i>
+                  </div>
+                </div>
               </div>
 
               <div class="col-md-6">
-                <label for="reorder_level" class="form-label">Reorder Level</label>
-                <input type="number" class="form-control" id="reorder_level" name="reorder_level"
-                  value="<?= $editItem['reorder_level'] ?? 0 ?>">
+                <div class="form-group">
+                  <label class="d-block mb-8 c-grey fs-16 fw-bold">Reorder Level</label>
+                  <div class="input-field bg-eee rad-6 p-relative">
+                    <input type="number" class="b-none bg-transparent p-10 w-full fs-14"
+                      name="reorder_level"
+                      value="<?= $editItem['reorder_level'] ?? 0 ?>">
+                    <i class="fa-solid fa-bell p-absolute c-grey"
+                      style="right: 15px; top: 50%; transform: translateY(-50%);"></i>
+                  </div>
+                </div>
               </div>
 
               <div class="col-md-6">
-                <label for="supplier_id" class="form-label">Supplier</label>
-                <select class="form-select" id="supplier_id" name="supplier_id" required>
-                  <option value="">Select Supplier</option>
-                  <?php foreach ($suppliers as $supplier): ?>
-                    <option value="<?= $supplier['id'] ?>"
-                      <?= ($editItem['supplier_id'] ?? '') == $supplier['id'] ? 'selected' : '' ?>>
-                      <?= htmlspecialchars($supplier['name']) ?>
-                    </option>
-                  <?php endforeach; ?>
-                </select>
-              </div>
-
-              <div class="col-12">
-                <button type="submit" class="btn btn-primary">
-                  <?= $editItem ? 'Update Item' : 'Add Item' ?>
-                </button>
-                <?php if ($editItem): ?>
-                  <a href="?" class="btn btn-secondary">Cancel</a>
-                <?php endif; ?>
+                <div class="form-group">
+                  <label class="d-block mb-8 c-grey fs-16 fw-bold">Supplier</label>
+                  <div class="input-field bg-eee rad-6 p-relative">
+                    <select class="b-none bg-transparent p-10 w-full fs-14 appearance-none"
+                      name="supplier_id"
+                      required>
+                      <option value="">Select Supplier</option>
+                      <?php foreach ($suppliers as $supplier): ?>
+                        <option value="<?= $supplier['id'] ?>" <?= ($editItem['supplier_id'] ?? '') == $supplier['id'] ? 'selected' : '' ?>>
+                          <?= htmlspecialchars($supplier['name']) ?>
+                        </option>
+                      <?php endforeach; ?>
+                    </select>
+                    <i class="fa-solid fa-chevron-down p-absolute c-grey"
+                      style="right: 15px; top: 50%; transform: translateY(-50%); pointer-events: none;"></i>
+                  </div>
+                </div>
               </div>
             </div>
-          </form>
-        </div>
+
+            <div class="d-flex align-center gap-15 mt-10">
+              <button type="submit" class="btn-shape bg-red c-white border-0 p-relative overflow-hidden">
+                <span class="z-1 p-relative">
+                  <?= $editItem ? '🔄 Update Item' : '➕ Add Item' ?>
+                </span>
+                <div class="hover-effect bg-red-alt-color p-absolute w-full h-full"></div>
+              </button>
+              <?php if ($editItem): ?>
+                <a href="?" class="btn-shape bg-grey c-black border-0 hover-bg-dark-grey transition">
+                  ❌ Cancel
+                </a>
+              <?php endif; ?>
+            </div>
+          </div>
+        </form>
       </div>
 
-      <div class="card shadow special">
-        <div class="card-header bg-white">
-          <h5 class="mb-0">Inventory Items</h5>
+
+
+      <div class="dashboard-card bg-white rad-10 p-20 border-top-red">
+        <div class="between-flex mb-20">
+          <h3 class="m-0 c-red">Inventory Items</h3>
+          <i class="fa-solid fa-clipboard-list fa-2x c-red"></i>
         </div>
-        <div class="card-body">
-          <div class="table-responsive">
-            <table class="table table-hover">
-              <thead>
-                <tr>
-                  <th>ID</th>
-                  <th>Item Name</th>
-                  <th>Quantity</th>
-                  <th>Reorder Level</th>
-                  <th>Supplier</th>
-                  <th>Actions</th>
+
+        <div class="table-responsive">
+          <table class="w-full">
+            <thead>
+              <tr class="bg-eee fs-14">
+                <th class="p-15">ID</th>
+                <th class="p-15">Item Name</th>
+                <th class="p-15">Quantity</th>
+                <th class="p-15">Reorder Level</th>
+                <th class="p-15">Supplier</th>
+                <th class="p-15">Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              <?php foreach ($inventoryItems as $item): ?>
+                <tr class="border-bottom-eee">
+                  <td class="p-15"><?= $item['id'] ?></td>
+                  <td class="p-15"><?= htmlspecialchars($item['item_name']) ?></td>
+                  <td class="p-15"><?= $item['quantity'] ?></td>
+                  <td class="p-15"><?= $item['reorder_level'] ?? 'N/A' ?></td>
+                  <td class="p-15"><?= $supplierMap[$item['supplier_id']] ?? 'Unknown' ?></td>
+                  <td class="p-15 between-flex">
+                    <a href="?edit_id=<?= $item['id'] ?>" class="btn-shape bg-orange c-white">
+                      <i class="fa-solid fa-pencil fs-14"></i>
+                    </a>
+                    <form method="post" class="d-inline">
+                      <input type="hidden" name="action" value="delete">
+                      <input type="hidden" name="id" value="<?= $item['id'] ?>">
+                      <button type="submit" class="btn-shape bg-red c-white border-0"
+                        onclick="return confirm('Delete this item?')">
+                        <i class="fa-solid fa-trash fs-14"></i>
+                      </button>
+                    </form>
+                  </td>
                 </tr>
-              </thead>
-              <tbody>
-                <?php foreach ($inventoryItems as $item): ?>
-                  <tr>
-                    <td><?= $item['id'] ?></td>
-                    <td><?= htmlspecialchars($item['item_name']) ?></td>
-                    <td><?= $item['quantity'] ?></td>
-                    <td><?= $item['reorder_level'] ?? 'N/A' ?></td>
-                    <td><?= $supplierMap[$item['supplier_id']] ?? 'Unknown' ?></td>
-                    <td>
-                      <a href="?edit_id=<?= $item['id'] ?>" class="btn btn-sm btn-warning">
-                        <i class="fa-solid fa-pencil"></i>
-                      </a>
-                      <form method="post" class="d-inline">
-                        <input type="hidden" name="action" value="delete">
-                        <input type="hidden" name="id" value="<?= $item['id'] ?>">
-                        <button type="submit" class="btn btn-sm btn-danger"
-                          onclick="return confirm('Are you sure you want to delete this item?')">
-                          <i class="fa-solid fa-trash"></i>
-                        </button>
-                      </form>
-                    </td>
-                  </tr>
-                <?php endforeach; ?>
-              </tbody>
-            </table>
-          </div>
+              <?php endforeach; ?>
+            </tbody>
+          </table>
         </div>
       </div>
     </div>
   </div>
 </div>
 
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-</body>
+<style>
+  .border-top-red {
+    border-top: 4px solid var(--red-color);
+  }
 
-</html>
+  .dashboard-card {
+    transition: transform 0.3s;
+    box-shadow: 0 0 10px #00000010;
+  }
+
+  .dashboard-card:hover {
+    transform: translateY(-5px);
+  }
+
+  .border-bottom-eee:not(:last-child) {
+    border-bottom: 1px solid #eee;
+  }
+
+  .wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .form-group {
+    margin-bottom: 15px;
+  }
+
+  .input-field {
+    transition: all 0.3s ease;
+    border: 2px solid transparent;
+  }
+
+  .input-field:hover {
+    border-color: var(--red-color);
+  }
+
+  .input-field:focus-within {
+    border-color: var(--red-color);
+    box-shadow: 0 0 8px rgb(0 117 255 / 20%);
+  }
+
+  .input-field input:focus,
+  .input-field select:focus {
+    box-shadow: none !important;
+  }
+
+  .hover-effect {
+    left: -100%;
+    transition: all 0.4s ease;
+  }
+
+  .btn-shape:hover .hover-effect {
+    left: 0;
+  }
+
+  .appearance-none {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+  }
+
+  .hover-bg-dark-grey:hover {
+    background-color: #666 !important;
+    color: white !important;
+  }
+</style>

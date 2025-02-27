@@ -30,75 +30,99 @@ $reservations = $reservationsRow['confirmed_reservations'] ?? 0;
 
 require_once('../includes/header.php');
 ?>
-<div class="container">
-  <div class="row flex-nowrap">
-    <div class="col-auto col-md-3 col-xl-2 px-sm-2 px-0 ">
-      <?php require_once('./sidebar.php'); ?>
-    </div>
-    <div class="col py-5 mt-5">
-      <nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-4 shadow-lg rounded">
-        <div class="container-fluid d-flex align-items-center">
-          <h3 class="text-white fw-bold mb-0">
-            <i class="fa-solid fa-chart-line me-2"></i> Dashboard
-          </h3>
-        </div>
-      </nav>
-      <div class="row mb-4">
-        <div class="col-md-4">
-          <div class="card shadow">
-            <div class="card-body">
-              <h5 class="card-title"><i class="fas fa-coins"></i> Total Sales</h5>
-              <p class="display-4">$<?= number_format($totalSales, 2) ?></p>
-            </div>
-          </div>
-        </div>
-        <div class="col-md-4">
-          <div class="card shadow">
-            <div class="card-body">
-              <h5 class="card-title"><i class="fas fa-tasks"></i> Active Orders</h5>
-              <p class="display-4"><?= $activeOrders ?></p>
-            </div>
-          </div>
-        </div>
-        <div class="col-md-4">
-          <div class="card shadow">
-            <div class="card-body">
-              <h5 class="card-title"><i class="fas fa-calendar-check"></i> Reservations</h5>
-              <p class="display-4"><?= $reservations ?></p>
-            </div>
-          </div>
-        </div>
+<div class="page d-flex">
+  <?php require_once('./sidebar.php'); ?>
+  <div class="content w-full bg-light">
+    <div class="head bg-red c-white p-15 between-flex">
+      <h2 class="m-0">
+        <i class="fa-solid fa-chart-line mr-10"></i>
+        Restaurant Dashboard
+      </h2>
+      <div class="d-flex align-center">
+        <span class="fs-14"><?= date('F j, Y') ?></span>
       </div>
-      <div class="row mb-4">
-        <div class="col-md-4">
-          <div class="card shadow">
-            <div class="card-body">
-              <h5 class="card-title"><i class="fas fa-pizza-slice"></i> Total Items</h5>
-              <p class="display-4"><?= $totalItems ?></p>
-            </div>
+    </div>
+
+    <div class="wrapper d-grid gap-20 p-20">
+      <div class="dashboard-card bg-white rad-10 p-20 border-top-red">
+        <div class="between-flex">
+          <div>
+            <h3 class="mt-0 mb-5 c-red">Total Sales</h3>
+            <p class="m-0 fs-14 c-grey">All-time revenue</p>
           </div>
+          <i class="fa-solid fa-coins fa-2x c-red"></i>
         </div>
-        <div class="col-md-4">
-          <div class="card shadow">
-            <div class="card-body">
-              <h5 class="card-title"><i class="fas fa-dollar-sign"></i> Average Price</h5>
-              <p class="display-4">$<?= number_format($averagePrice, 2) ?></p>
-            </div>
+        <h1 class="c-black mt-20">$<?= number_format($totalSales, 2) ?></h1>
+      </div>
+
+      <div class="dashboard-card bg-white rad-10 p-20 border-top-red">
+        <div class="between-flex">
+          <div>
+            <h3 class="mt-0 mb-5 c-red">Active Orders</h3>
+            <p class="m-0 fs-14 c-grey">Currently processing</p>
           </div>
+          <i class="fa-solid fa-utensils fa-2x c-red"></i>
         </div>
-        <div class="col-md-4">
-          <div class="card shadow">
-            <div class="card-body">
-              <h5 class="card-title"><i class="fas fa-check-circle"></i> Available Items</h5>
-              <p class="display-4"><?= $availableItems ?></p>
-            </div>
+        <h1 class="c-black mt-20"><?= $activeOrders ?></h1>
+      </div>
+
+      <div class="dashboard-card bg-white rad-10 p-20 border-top-red">
+        <div class="between-flex">
+          <div>
+            <h3 class="mt-0 mb-5 c-red">Reservations</h3>
+            <p class="m-0 fs-14 c-grey">Confirmed bookings</p>
           </div>
+          <i class="fa-regular fa-calendar-check fa-2x c-red"></i>
         </div>
+        <h1 class="c-black mt-20"><?= $reservations ?></h1>
+      </div>
+
+      <div class="dashboard-card bg-white rad-10 p-20 border-top-red">
+        <div class="between-flex">
+          <div>
+            <h3 class="mt-0 mb-5 c-red">Available Items</h3>
+            <p class="m-0 fs-14 c-grey">Menu items in stock</p>
+          </div>
+          <i class="fa-solid fa-pizza-slice fa-2x c-red"></i>
+        </div>
+        <h1 class="c-black mt-20"><?= $availableItems ?></h1>
+      </div>
+
+      <div class="dashboard-card bg-white rad-10 p-20 border-top-red">
+        <div class="between-flex">
+          <div>
+            <h3 class="mt-0 mb-5 c-red">Average Price</h3>
+            <p class="m-0 fs-14 c-grey">Per menu item</p>
+          </div>
+          <i class="fa-solid fa-dollar-sign fa-2x c-red"></i>
+        </div>
+        <h1 class="c-black mt-20">$<?= number_format($averagePrice, 2) ?></h1>
+      </div>
+
+      <div class="dashboard-card bg-white rad-10 p-20 border-top-red">
+        <div class="between-flex">
+          <div>
+            <h3 class="mt-0 mb-5 c-red">Total Items</h3>
+            <p class="m-0 fs-14 c-grey">Menu variety</p>
+          </div>
+          <i class="fa-solid fa-utensils fa-2x c-red"></i>
+        </div>
+        <h1 class="c-black mt-20"><?= $totalItems ?></h1>
       </div>
     </div>
   </div>
 </div>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-</body>
 
-</html>
+<style>
+  .border-top-red {
+    border-top: 4px solid var(--red-color);
+  }
+
+  .dashboard-card {
+    transition: transform 0.3s;
+  }
+
+  .dashboard-card:hover {
+    transform: translateY(-5px);
+  }
+</style>

@@ -8,6 +8,8 @@
 
   <!-- Bootstrap CSS -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="/assets/CSS/framework.css" rel="stylesheet">
+  <link href="/assets/CSS/master.css" rel="stylesheet">
 
   <!-- Font Awesome -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
@@ -135,7 +137,7 @@
               </li>
             <?php endif; ?>
         </ul>
-        <?php endif; ?>
+      <?php endif; ?>
       </div>
     </div>
   </nav>
