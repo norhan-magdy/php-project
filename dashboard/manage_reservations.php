@@ -32,112 +32,122 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   }
 }
 
-// Get all reservations with additional information
 $reservations = $reservationModel->getAllReservations();
 $users = $userModel->getAllUsers();
 $tables = $tableModel->getAllTables();
 
-// Create helper arrays for quick lookups
-$userMap = [];
-foreach ($users as $user) {
-  $userMap[$user['id']] = $user['username'];
-}
-
-$tableMap = [];
-foreach ($tables as $table) {
-  $tableMap[$table['id']] = 'Table ' . $table['table_number'] . ' (' . $table['capacity'] . ' seats)';
-}
+$userMap = array_column($users, 'username', 'id');
+$tableMap = array_column($tables, null, 'id');
 
 require_once('../includes/header.php');
 ?>
 
-<div class="container">
-  <div class="row flex-nowrap">
-    <div class="col-auto col-md-3 col-xl-2 px-sm-2 px-0">
-      <?php require_once('./sidebar.php'); ?>
+<div class="page d-flex">
+  <?php require_once('./sidebar.php'); ?>
+  <div class="content w-full bg-light">
+    <div class="head bg-red c-white p-15 between-flex">
+      <h2 class="m-0"><i class="fa-regular fa-calendar-check mr-10"></i> Reservations</h2>
+      <span class="fs-14"> <?= date('F j, Y') ?> </span>
     </div>
 
-    <div class="col py-5 mt-5">
-      <nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-4 shadow-lg rounded">
-        <div class="container-fluid d-flex align-items-center">
-          <h3 class="text-white fw-bold mb-0">
-            <i class="fa-regular fa-calendar-check me-2"></i> Reservations
-          </h3>
-        </div>
-      </nav>
-
+    <div class="wrapper d-grid gap-20 p-20" style="grid-template-columns: 1fr;">
       <?php if (isset($_SESSION['success'])): ?>
-        <div class="alert alert-success"><?= $_SESSION['success'] ?></div>
+        <div class="alert bg-green c-white p-10 rad-6 fs-14">
+          <?= $_SESSION['success'] ?>
+        </div>
         <?php unset($_SESSION['success']); ?>
       <?php endif; ?>
       <?php if (isset($_SESSION['error'])): ?>
-        <div class="alert alert-danger"><?= $_SESSION['error'] ?></div>
+        <div class="alert bg-red c-white p-10 rad-6 fs-14">
+          <?= $_SESSION['error'] ?>
+        </div>
         <?php unset($_SESSION['error']); ?>
       <?php endif; ?>
 
-      <div class="card shadow special">
-        <div class="card-header bg-white">
-          <h5 class="mb-0">All Reservations</h5>
+      <div class="dashboard-card bg-white rad-10 p-20 border-top-red">
+        <div class="between-flex mb-20">
+          <h3 class="m-0 c-red">📅 All Reservations</h3>
+          <i class="fa-solid fa-list fa-2x c-red"></i>
         </div>
-        <div class="card-body">
-          <div class="table-responsive">
-            <table class="table table-hover">
-              <thead>
-                <tr>
-                  <th>ID</th>
-                  <th>User</th>
-                  <th>Table</th>
-                  <th>Date & Time</th>
-                  <th>Guests</th>
-                  <th>Status</th>
-                  <th>Actions</th>
-                </tr>
-              </thead>
-              <tbody>
-                <?php foreach ($reservations as $reservation): ?>
-                  <tr>
-                    <td><?= $reservation['id'] ?></td>
-                    <td><?= $userMap[$reservation['user_id']] ?? 'Unknown' ?></td>
-                    <td><?= $tableMap[$reservation['table_id']] ?? 'Unknown' ?></td>
-                    <td><?= date('M j, Y H:i', strtotime($reservation['reservation_date'])) ?></td>
-                    <td><?= $reservation['guests'] ?></td>
-                    <td>
-                      <form method="post" class="d-inline">
-                        <input type="hidden" name="action" value="update_status">
-                        <input type="hidden" name="id" value="<?= $reservation['id'] ?>">
-                        <select name="status" class="form-select form-select-sm"
-                          onchange="this.form.submit()">
-                          <option value="confirmed" <?= $reservation['status'] === 'confirmed' ? 'selected' : '' ?>>Confirmed</option>
-                          <option value="cancelled" <?= $reservation['status'] === 'cancelled' ? 'selected' : '' ?>>Cancelled</option>
-                        </select>
-                      </form>
-                    </td>
-                    <td>
-                      <a href="edit_reservation.php?id=<?= $reservation['id'] ?>" class="btn btn-sm btn-warning">
-                        <i class="fa-solid fa-pencil"></i>
-                      </a>
-                      <form method="post" class="d-inline">
-                        <input type="hidden" name="action" value="delete">
-                        <input type="hidden" name="id" value="<?= $reservation['id'] ?>">
-                        <button type="submit" class="btn btn-sm btn-danger"
-                          onclick="return confirm('Are you sure you want to delete this reservation?')">
-                          <i class="fa-solid fa-trash"></i>
 
-                        </button>
-                      </form>
-                    </td>
-                  </tr>
-                <?php endforeach; ?>
-              </tbody>
-            </table>
-          </div>
+        <div class="table-responsive">
+          <table class="w-full">
+            <thead>
+              <tr class="bg-eee fs-14">
+                <th class="p-15">ID</th>
+                <th class="p-15">User</th>
+                <th class="p-15">Table</th>
+                <th class="p-15">Date & Time</th>
+                <th class="p-15">Guests</th>
+                <th class="p-15">Status</th>
+                <th class="p-15">Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              <?php foreach ($reservations as $reservation): ?>
+                <tr class="border-bottom-eee">
+                  <td class="p-15"> <?= $reservation['id'] ?> </td>
+                  <td class="p-15"> <?= $userMap[$reservation['user_id']] ?? 'Unknown' ?> </td>
+                  <td class="p-15"> <?= $tableMap[$reservation['table_id']]['table_number'] ?? 'Unknown' ?> </td>
+                  <td class="p-15"> <?= date('M j, Y H:i', strtotime($reservation['reservation_date'])) ?> </td>
+                  <td class="p-15"> <?= $reservation['guests'] ?> </td>
+                  <td class="p-15">
+                    <form method="post" class="d-inline">
+                      <input type="hidden" name="action" value="update_status">
+                      <input type="hidden" name="id" value="<?= $reservation['id'] ?>">
+                      <select name="status" class="form-select form-select-sm" onchange="this.form.submit()">
+                        <option value="confirmed" <?= $reservation['status'] === 'confirmed' ? 'selected' : '' ?>>Confirmed</option>
+                        <option value="cancelled" <?= $reservation['status'] === 'cancelled' ? 'selected' : '' ?>>Cancelled</option>
+                      </select>
+                    </form>
+                  </td>
+                  <td class="p-15 between-flex">
+                    <a href="edit_reservation.php?id=<?= $reservation['id'] ?>" class="btn-shape bg-orange c-white">
+                      <i class="fa-solid fa-pencil fs-14"></i>
+                    </a>
+                    <form method="post" class="d-inline">
+                      <input type="hidden" name="action" value="delete">
+                      <input type="hidden" name="id" value="<?= $reservation['id'] ?>">
+                      <button type="submit" class="btn-shape bg-red c-white border-0" onclick="return confirm('Delete this reservation?')">
+                        <i class="fa-solid fa-trash fs-14"></i>
+                      </button>
+                    </form>
+                  </td>
+                </tr>
+              <?php endforeach; ?>
+            </tbody>
+          </table>
         </div>
       </div>
     </div>
   </div>
 </div>
 
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-</body>
+<style>
+  .border-top-red {
+    border-top: 4px solid var(--red-color);
+  }
 
-</html>
+  .dashboard-card {
+    transition: transform 0.3s;
+    box-shadow: 0 0 10px #00000010;
+  }
+
+  .dashboard-card:hover {
+    transform: translateY(-5px);
+  }
+
+  .border-bottom-eee:not(:last-child) {
+    border-bottom: 1px solid #eee;
+  }
+
+  .btn-shape:hover .hover-effect {
+    left: 0;
+  }
+
+  .appearance-none {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+  }
+</style>
