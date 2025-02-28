@@ -70,6 +70,9 @@ $address = !empty($user['address']) ? $user['address'] : 'Not provided';
     </div>
 </div>
 
+    <a class="nav-link" href="order_history.php">Order History</a>
+
+
 <?php require_once('../includes/footer.php'); ?>
 
 <!-- Bootstrap JS -->

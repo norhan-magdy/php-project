@@ -56,4 +56,12 @@ class  OrderModel
         $stmt->bind_param("i", $orderId);
         return $stmt->execute();
     }
+
+    public function getOrdersByUserId($user_id) {
+        $stmt = $this->conn->prepare("SELECT * FROM orders WHERE user_id = ? ORDER BY order_date DESC");
+        $stmt->bind_param("i", $user_id);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        return $result->fetch_all(MYSQLI_ASSOC);
+}
 }
