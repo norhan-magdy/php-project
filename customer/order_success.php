@@ -4,6 +4,7 @@ session_start();
 // Include models
 require_once '../models/OrderModel.php';
 
+
 // Initialize models
 $orderModel = new OrderModel();
 
@@ -45,8 +46,8 @@ if ($orderDetails['user_id'] != $_SESSION['user_id']) {
     <!-- Header -->
     <?php require_once('../includes/header.php'); ?>
 
-    <div class="container mt-5">
-        <div class="alert alert-success  text-center">
+    <div class="container mt-5 pt-5">
+        <div class="alert alert-success  text-center mt-5 pt-5">
             <h2>Order Placed Successfully!</h2>
             <p>Thank you for your order. Here are the details:</p>
             <p><strong>Order ID:</strong> <?= htmlspecialchars($order_id) ?></p>
@@ -66,9 +67,12 @@ if ($orderDetails['user_id'] != $_SESSION['user_id']) {
         </div>
     </div>
 
+    <div class="fixed-bottom">
+        <!-- Footer -->
+    <?php require_once('../includes/footer.php'); ?>
+
+    </div>
     <!-- Footer -->
-     <div class="fuck">
-     <?php require_once('../includes/footer.php'); ?>
 
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>

@@ -12,6 +12,8 @@ require_once '../models/UserModel.php';
 require_once '../models/OrderModel.php';
 require_once '../models/OrderItemModel.php';
 require_once '../controller/CartModel.php';
+require_once '../helpers/emailHelper.php';
+
 
 // Initialize models
 $userModel = new UserModel();
@@ -94,6 +96,40 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['address'])) {
     // Add order items
     $orderItemModel->addOrderItems($order_id, $cart);
 
+
+
+
+    $user_email = $_SESSION['email'];
+    $subject = "Order Confirmation - Order #$order_id";
+    $body = "
+        <h1>Thank you for your order!</h1>
+        <p>Your order has been successfully placed.</p>
+        <h3>Order Details:</h3>
+        <ul>
+            <li><strong>Order ID:</strong> $order_id</li>
+            <li><strong>Total Price:</strong> $$total_price</li>
+            <li><strong>Delivery Address:</strong> $address</li>
+            <li><strong>Payment Method:</strong> $payment_method</li>
+        </ul>
+        <h3>Items Ordered:</h3>
+        <ul>
+    ";
+
+    // Add each item to the email body
+    foreach ($cart as $item) {
+        $body .= "<li>{$item['dish_name']} (Quantity: {$item['quantity']}) - $" . ($item['dish_price'] * $item['quantity']) . "</li>";
+    }
+
+    $body .= "</ul>";
+
+    // Send the email
+    if (sendEmail($user_email, $subject, $body)) {
+        error_log("Order confirmation email sent to: $user_email");
+    } else {
+        error_log("Failed to send order confirmation email to: $user_email");
+    }
+
+
     // Clear the cart
     CartModel::clearCart();
 
@@ -162,7 +198,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['address'])) {
     </style>
 </head>
 
-<body class="d-flex flex-column min-vh-100">
+<body >
     <!-- Header -->
     <?php require_once('../includes/header.php'); ?>
 

@@ -235,7 +235,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['add_to_cart'])) {
     <?php require_once('../includes/header.php'); ?>
 
     <!-- Sidebar -->
-    <div class="sidebar">
+    <div class="sidebar fixed style= "hight: 100vh;">
         <h3>Categories</h3>
         <ul>
             <li>
