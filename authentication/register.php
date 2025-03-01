@@ -4,6 +4,7 @@ session_start();
 
 // Include UserModel
 require_once('../models/UserModel.php');
+require_once('../helpers/emailHelper.php');
 
 // Initialize variables
 $username = $email = $password = $confirm_password = '';
@@ -69,6 +70,22 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $_SESSION['email'] = $email;
                 $_SESSION['role'] = 'customer'; // Default role
 
+                $subject = "Welcome to Our App!";
+                $body = "
+                    <h1>Welcome, $username!</h1>
+                    <p>Thank you for registering with us. We're excited to have you on board.</p>
+                    <p>If you have any questions, feel free to contact us.</p>
+                    <p>Best regards,<br>Sapori D'Italia</p>
+                ";
+
+                if (sendEmail($email, $subject, $body)) {
+                    // Email sent successfully
+                    error_log("Welcome email sent to: $email");
+                } else {
+                    // Email failed to send
+                    error_log("Failed to send welcome email to: $email");
+                }
+
                 // Redirect to login page
                 header('Location: login.php?registered=success');
                 exit;
@@ -82,6 +99,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -103,7 +121,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             background-color: #343a40 !important;
         }
 
-        .navbar-brand, .nav-link {
+        .navbar-brand,
+        .nav-link {
             color: white !important;
         }
 
@@ -197,11 +216,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     <div class="fixed-bottom">
         <!-- Footer -->
-    <?php require_once('../includes/footer.php'); ?>
+        <?php require_once('../includes/footer.php'); ?>
 
     </div>
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
 </body>
+
 </html>
