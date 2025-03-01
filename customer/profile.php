@@ -54,7 +54,7 @@ $address = !empty($user['address']) ? $user['address'] : 'Not provided';
         }
     </style>
 </head>
-<body class="bg-light">
+<body class="d-flex flex min-vh-100">
 
 <?php require_once('../includes/header.php'); ?>
 
@@ -70,8 +70,16 @@ $address = !empty($user['address']) ? $user['address'] : 'Not provided';
     </div>
 </div>
 
-<?php require_once('../includes/footer.php'); ?>
+    <div class="container mt-5">
+        <?php require_once('order_history.php'); ?>
+    </div>
 
+
+    <div class="fixed-bottom">
+        <!-- Footer -->
+    <?php require_once('../includes/footer.php'); ?>
+
+    </div>
 <!-- Bootstrap JS -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
