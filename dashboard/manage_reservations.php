@@ -102,7 +102,7 @@ require_once('../includes/header.php');
                     </form>
                   </td>
                   <td class="p-15 between-flex">
-                    <a href="edit_reservation.php?id=<?= $reservation['id'] ?>" class="btn-shape bg-orange c-white">
+                    <a href="edit_reservation.php?id=<?= $reservation['id'] ?>" class="btn-shape bg-orange c-white border-0">
                       <i class="fa-solid fa-pencil fs-14"></i>
                     </a>
                     <form method="post" class="d-inline">

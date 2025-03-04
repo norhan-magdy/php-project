@@ -8,6 +8,12 @@
       </a>
     </li>
     <li>
+      <a class="d-flex align-center fs-14 c-black rad-6 p-10" href="./manage_special_offers.php">
+        <i class="fa-solid fa-star mr-10"></i>
+        <span>Special Offers</span>
+      </a>
+    </li>
+    <li>
       <a class="d-flex align-center fs-14 c-black rad-6 p-10" href="./manage_inventory.php">
         <i class="fa-solid fa-box mr-10"></i>
         <span>Inventory</span>
