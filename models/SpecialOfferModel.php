@@ -1,6 +1,5 @@
 <?php
-// SpecialOfferModel.php
-require_once '../conf/conf.php'; // Include the database configuration
+require_once '../conf/conf.php';
 
 class SpecialOfferModel
 {
@@ -9,10 +8,10 @@ class SpecialOfferModel
     private $tableOfferMenuItems = 'offer_menu_items';
     private $tableMenuItems = 'menu_items';
 
-    // Constructor to initialize the database connection
-    public function __construct($conn)
+    public function __construct()
     {
-        $this->conn = $conn; // Use the connection passed from conf.php
+        global $conn;
+        $this->conn = $conn;
     }
 
     /**
@@ -35,7 +34,7 @@ class SpecialOfferModel
             }
             return $offers;
         } else {
-            return null; // No offers found
+            return null;
         }
     }
 
@@ -59,7 +58,7 @@ class SpecialOfferModel
         if ($result->num_rows > 0) {
             return $result->fetch_assoc();
         } else {
-            return null; // Offer not found
+            return null;
         }
     }
 
@@ -152,7 +151,7 @@ class SpecialOfferModel
         if ($result->num_rows > 0) {
             return $result->fetch_assoc();
         } else {
-            return null; // Menu item not found
+            return null;
         }
     }
 
@@ -223,14 +222,14 @@ class SpecialOfferModel
     }
 
     /**
- * Fetch a specific special offer with its associated menu items.
- *
- * @param int $offer_id The ID of the special offer.
- * @return array|null The special offer data with associated items or null if not found.
- */
-public function getSpecialOfferWithItems(int $offer_id): ?array
-{
-    $sql = "
+     * Fetch a specific special offer with its associated menu items.
+     *
+     * @param int $offer_id The ID of the special offer.
+     * @return array|null The special offer data with associated items or null if not found.
+     */
+    public function getSpecialOfferWithItems(int $offer_id): ?array
+    {
+        $sql = "
         SELECT 
             so.*, 
             mi.id AS item_id, 
@@ -243,97 +242,95 @@ public function getSpecialOfferWithItems(int $offer_id): ?array
         LEFT JOIN {$this->tableMenuItems} mi ON omi.menu_item_id = mi.id
         WHERE so.id = ? AND so.expiry_date >= CURDATE()
     ";
-    $stmt = $this->conn->prepare($sql);
-    if (!$stmt) {
-        error_log("Prepare failed: " . $this->conn->error);
-        return null;
-    }
-    $stmt->bind_param("i", $offer_id);
-    $stmt->execute();
-    $result = $stmt->get_result();
-
-    if ($result->num_rows > 0) {
-        $offer = null;
-        while ($row = $result->fetch_assoc()) {
-            if (!$offer) {
-                // Initialize the offer data
-                $offer = [
-                    'id' => $row['id'],
-                    'name' => $row['name'],
-                    'description' => $row['description'],
-                    'discount' => $row['discount'],
-                    'expiry_date' => $row['expiry_date'],
-                    'applicable_to' => $row['applicable_to'],
-                    'created_at' => $row['created_at'],
-                    'items' => []
-                ];
-            }
-            if ($row['item_id']) {
-                // Add associated menu items
-                $offer['items'][] = [
-                    'id' => $row['item_id'],
-                    'name' => $row['item_name'],
-                    'description' => $row['item_description'],
-                    'price' => $row['item_price'],
-                    'image' => $row['item_image']
-                ];
-            }
+        $stmt = $this->conn->prepare($sql);
+        if (!$stmt) {
+            error_log("Prepare failed: " . $this->conn->error);
+            return null;
         }
-        return $offer;
-    } else {
-        return null; // Offer not found
-    }
-}
+        $stmt->bind_param("i", $offer_id);
+        $stmt->execute();
+        $result = $stmt->get_result();
 
-/**
- * Fetch the price of a menu item by its ID.
- *
- * @param int $menu_item_id The ID of the menu item.
- * @return float|null The price of the menu item or null if not found.
- */
-public function getMenuItemPrice(int $menu_item_id): ?float
-{
-    $sql = "SELECT price FROM {$this->tableMenuItems} WHERE id = ?";
-    $stmt = $this->conn->prepare($sql);
-    if (!$stmt) {
-        error_log("Prepare failed: " . $this->conn->error);
-        return null;
+        if ($result->num_rows > 0) {
+            $offer = null;
+            while ($row = $result->fetch_assoc()) {
+                if (!$offer) {
+                    $offer = [
+                        'id' => $row['id'],
+                        'name' => $row['name'],
+                        'description' => $row['description'],
+                        'discount' => $row['discount'],
+                        'expiry_date' => $row['expiry_date'],
+                        'applicable_to' => $row['applicable_to'],
+                        'created_at' => $row['created_at'],
+                        'items' => []
+                    ];
+                }
+                if ($row['item_id']) {
+                    $offer['items'][] = [
+                        'id' => $row['item_id'],
+                        'name' => $row['item_name'],
+                        'description' => $row['item_description'],
+                        'price' => $row['item_price'],
+                        'image' => $row['item_image']
+                    ];
+                }
+            }
+            return $offer;
+        } else {
+            return null;
+        }
     }
-    $stmt->bind_param("i", $menu_item_id);
-    $stmt->execute();
-    $result = $stmt->get_result();
 
-    if ($result->num_rows > 0) {
-        $row = $result->fetch_assoc();
-        return (float)$row['price'];
-    } else {
-        return null; // Menu item not found
-    }
-}
+    /**
+     * Fetch the price of a menu item by its ID.
+     *
+     * @param int $menu_item_id The ID of the menu item.
+     * @return float|null The price of the menu item or null if not found.
+     */
+    public function getMenuItemPrice(int $menu_item_id): ?float
+    {
+        $sql = "SELECT price FROM {$this->tableMenuItems} WHERE id = ?";
+        $stmt = $this->conn->prepare($sql);
+        if (!$stmt) {
+            error_log("Prepare failed: " . $this->conn->error);
+            return null;
+        }
+        $stmt->bind_param("i", $menu_item_id);
+        $stmt->execute();
+        $result = $stmt->get_result();
 
-/**
- * Fetch the name of a menu item by its ID.
- *
- * @param int $menu_item_id The ID of the menu item.
- * @return string|null The name of the menu item or null if not found.
- */
-public function getMenuItemName(int $menu_item_id): ?string
-{
-    $sql = "SELECT name FROM {$this->tableMenuItems} WHERE id = ?";
-    $stmt = $this->conn->prepare($sql);
-    if (!$stmt) {
-        error_log("Prepare failed: " . $this->conn->error);
-        return null;
+        if ($result->num_rows > 0) {
+            $row = $result->fetch_assoc();
+            return (float)$row['price'];
+        } else {
+            return null;
+        }
     }
-    $stmt->bind_param("i", $menu_item_id);
-    $stmt->execute();
-    $result = $stmt->get_result();
 
-    if ($result->num_rows > 0) {
-        $row = $result->fetch_assoc();
-        return htmlspecialchars($row['name']);
-    } else {
-        return null; // Menu item not found
+    /**
+     * Fetch the name of a menu item by its ID.
+     *
+     * @param int $menu_item_id The ID of the menu item.
+     * @return string|null The name of the menu item or null if not found.
+     */
+    public function getMenuItemName(int $menu_item_id): ?string
+    {
+        $sql = "SELECT name FROM {$this->tableMenuItems} WHERE id = ?";
+        $stmt = $this->conn->prepare($sql);
+        if (!$stmt) {
+            error_log("Prepare failed: " . $this->conn->error);
+            return null;
+        }
+        $stmt->bind_param("i", $menu_item_id);
+        $stmt->execute();
+        $result = $stmt->get_result();
+
+        if ($result->num_rows > 0) {
+            $row = $result->fetch_assoc();
+            return htmlspecialchars($row['name']);
+        } else {
+            return null;
+        }
     }
-}
 }
