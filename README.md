@@ -56,11 +56,12 @@ Sapori d'Italy is a restaurant management system built using PHP, MySQL, and Boo
 4. Run the application on a local server (e.g., XAMPP, WAMP).  
 
 ## Contributors  
-- **Norhan Magdy** (GitHub: [norhan-magdy](https://github.com/norhan-magdy))  
+- **Tarrek Osama** (GitHub: [Tarrek Osama](https://github.com/TarrekOsama))  
+- **Ahmed Galal** (GitHub: [Ahmed Galal](https://github.com/galal2241))  
+- **Menna Rashad** (GitHub: [Menna Rashad](https://github.com/Menna-Rashad))  
+- **Norhan Magdy** (GitHub: [Norhan Magdy](https://github.com/norhan-magdy))  
 
 ## License  
 This project is licensed under the MIT License.  
 
 ---  
-
-You can now format it into Markdown or any other style you prefer. Let me know if you need any changes! 😊

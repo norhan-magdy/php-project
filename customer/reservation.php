@@ -12,7 +12,10 @@ if (isset($_SESSION['user_id']) && $_SESSION['role'] === 'staff') {
     exit;
 }
 
-$controller = new ReservationController($someArgument);
+// Undefined variable $someArgument
+$controller = new ReservationController($conn);
+// $controller = new ReservationController($someArgument);
+
 $tables = $controller->getAllTables();
 ?>
 <!DOCTYPE html>
@@ -65,8 +68,8 @@ $tables = $controller->getAllTables();
 <body class="d-flex flex-column min-vh-100">
 <?php require_once('../includes/header.php'); ?>
 
-<main class="flex-grow-1 mt-5 pt-5">
-    <div class="container py-5">
+<main class="flex-grow-1 my-5">
+    <div class="container">
         <div class="reservation-form">
             <h1 class="text-center mb-4">Make a Reservation</h1>
             <form method="POST" action="reserve.php">
