@@ -28,7 +28,8 @@ if (isset($_SESSION['user_id']) && $_SESSION['role'] === 'staff') {
 
         /* Hero Section Styling */
         .hero-section {
-            position: relative;
+            display: block;
+            /* position: relative; */
             height: 100vh;
             display: flex;
             align-items: center;
@@ -49,6 +50,10 @@ if (isset($_SESSION['user_id']) && $_SESSION['role'] === 'staff') {
             background: url('../assets/img/hero.jpg') no-repeat center center/cover;
             filter: blur(5px) brightness(40%); /* Blur and dim the background */
             z-index: -1; /* Place it behind the content */
+        }
+
+        .img-thumbx {
+            max-width: 70%;
         }
 
         /* Navbar Customization */
@@ -121,7 +126,7 @@ if (isset($_SESSION['user_id']) && $_SESSION['role'] === 'staff') {
     <div class="hero-section">
         <div class="text-center p-5">
             <h1 class="display-3 fw-bold">Sapori D'Italia</h1>
-            <img src="../assets/img/Logo.png" alt="logo" class="img-fluid">
+            <img src="../assets/img/Logo.png" alt="logo" class="img-thumbx">
             <p class="lead">Delicious food, great ambiance, and exceptional service.</p>
             <a href="/customer/menu.php" class="btn btn-warning btn-lg">Explore Menu</a>
         </div>

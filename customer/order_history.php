@@ -1,5 +1,8 @@
 <?php
-session_start();
+
+if(!session_id()) /* (session_status() === PHP_SESSION_NONE)*/ {
+    session_start();
+};
 
 // Redirect if user is not logged in
 if (!isset($_SESSION['user_id'])) {
@@ -76,7 +79,7 @@ $orders = $orderModel->getOrdersByUserId($user_id);
                     <?php foreach ($orders as $order): ?>
                         <div class="order-card">
                             <h5>Order #<?= $order['id'] ?></h5>
-                            <p><strong>Date:</strong> <?= date('F j, Y, g:i A', strtotime($order['created_at'])) ?></p>
+                            <p><strong>Date:</strong> <?= date('F j, Y, g:i A', strtotime($order['order_date'])) ?></p>
                             <p><strong>Total Price:</strong> $<?= number_format($order['total_price'], 2) ?></p>
                             <p><strong>Address:</strong> <?= $order['address'] ?></p>
                             <p><strong>Payment Method:</strong> <?= $order['payment_method'] ?></p>

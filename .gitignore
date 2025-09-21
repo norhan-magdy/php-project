@@ -1,4 +1,6 @@
-
 conf.php
 conf2.php
 test.php
+.env
+/vendor/
+/uploads/

@@ -1,5 +1,9 @@
 <?php
-session_start();
+
+if(!session_id()) /* (session_status() === PHP_SESSION_NONE)*/ {
+    session_start();
+};
+
 require '../models/UserModel.php';
 
 if (!isset($_SESSION['user_id'])) {
@@ -68,7 +72,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
 <?php require_once('../includes/header.php'); ?>
 
-<div class="container mt-5">
+<div class="container my-5">
     <div class="row justify-content-center">
         <div class="col-md-6">
             <div class="card shadow-lg p-4">

@@ -55,7 +55,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         /* Global Styles */
         body {
             background: linear-gradient(to right, #f8f9fa, #e9ecef);
-            height: 100vh;
         }
 
         /* Navbar */
@@ -76,7 +75,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         .login-container {
             max-width: 400px;
             width: 100%;
-            margin: 200px auto 150px;
+            margin: 50px auto;
             padding: 30px;
             background: white;
             border-radius: 12px;
@@ -102,7 +101,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <?php require_once('../includes/header.php'); ?>
 
     <!-- Login Form -->
-    <div class="container d-flex justify-content-center align-items-center" style="min-height: 70vh;">
+    <div class="d-flex justify-content-center align-items-center" style="min-height: calc(100vh - 140px);" >
         <div class="login-container">
             <h2 class="text-center fw-bold mb-4">Login</h2>
 
@@ -139,11 +138,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         </div>
     </div>
 
-    <div class="fixed-bottom">
-        <!-- Footer -->
+    <!-- Footer -->
     <?php require_once('../includes/footer.php'); ?>
 
-    </div>
 
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>

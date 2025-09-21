@@ -172,7 +172,7 @@ CREATE TABLE `orders` (
   `id` int NOT NULL AUTO_INCREMENT,
   `user_id` int DEFAULT NULL,
   `total_price` decimal(10,2) DEFAULT NULL,
-  `payment_status` enum('pending','paid','refunded') DEFAULT 'pending',
+  `payment_status` enum('pending','paid','refunded','cancelled') DEFAULT 'pending',
   `status` enum('pending','preparing','ready','delivered') DEFAULT 'pending',
   `order_date` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`),

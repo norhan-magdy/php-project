@@ -35,7 +35,7 @@ $address = !empty($user['address']) ? $user['address'] : 'Not provided';
     <style>
         .profile-card {
             max-width: 500px;
-            margin: 180px auto ;
+            margin: 50px auto ;
             text-align: center;
             background: #fff;
             padding: 30px;
@@ -54,32 +54,34 @@ $address = !empty($user['address']) ? $user['address'] : 'Not provided';
         }
     </style>
 </head>
-<body class="d-flex flex min-vh-100">
+<!-- min-vh-100 -->
+<body>
 
 <?php require_once('../includes/header.php'); ?>
 
-<div class="container mt-5">
-    <div class="profile-card">
-        <img src="<?php echo htmlspecialchars($profile_picture); ?>" alt="Profile Picture" class="profile-picture mb-3">
-        <h3 class="fw-bold"><?php echo htmlspecialchars($user['username']); ?></h3>
-        <p class="text-muted">📧 <?php echo htmlspecialchars($user['email']); ?></p>
-        <p class="text-muted">📞 <?php echo htmlspecialchars($phone); ?></p>
-        <p class="text-muted">📍 <?php echo htmlspecialchars($address); ?></p>
-        
-        <a href="edit_profile.php" class="btn btn-primary btn-custom mt-3">Edit Profile</a>
+<section>
+
+    <div class="container">
+        <div class="profile-card">
+            <img src="<?php echo htmlspecialchars($profile_picture); ?>" alt="Profile Picture" class="profile-picture mb-3">
+            <h3 class="fw-bold"><?php echo htmlspecialchars($user['username']); ?></h3>
+            <p class="text-muted">📧 <?php echo htmlspecialchars($user['email']); ?></p>
+            <p class="text-muted">📞 <?php echo htmlspecialchars($phone); ?></p>
+            <p class="text-muted">📍 <?php echo htmlspecialchars($address); ?></p>
+            
+            <a href="edit_profile.php" class="btn btn-primary btn-custom mt-3">Edit Profile</a>
+        </div>
     </div>
-</div>
+    
+        <div class="container mt-5">
+            <?php require_once('order_history.php'); ?>
+        </div>
+</section>
 
-    <div class="container mt-5">
-        <?php require_once('order_history.php'); ?>
-    </div>
 
-
-    <div class="fixed-bottom">
-        <!-- Footer -->
+    <!-- Footer -->
     <?php require_once('../includes/footer.php'); ?>
 
-    </div>
 <!-- Bootstrap JS -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 

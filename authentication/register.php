@@ -135,7 +135,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             max-width: 400px;
             width: 100%;
             padding: 30px;
-            margin: 150px auto 30px;
+            margin: 50px auto;
             background: white;
             border-radius: 12px;
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
@@ -160,7 +160,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <?php require_once('../includes/header.php'); ?>
 
     <!-- Registration Form -->
-    <div class="container d-flex justify-content-center align-items-center" style="min-height: 70vh;">
+    <div class="d-flex justify-content-center align-items-center" >
         <div class="register-container">
             <h2 class="text-center fw-bold mb-4">Register</h2>
 
@@ -214,11 +214,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         </div>
     </div>
 
-    <div class="fixed-bottom">
         <!-- Footer -->
         <?php require_once('../includes/footer.php'); ?>
 
-    </div>
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
